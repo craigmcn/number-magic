@@ -20,14 +20,14 @@ function App() {
 
   return (
     <div className="App">
-      {!started && (
+      { !started && (
         <>
           <h1>Think of a number<br />between 1 and 64</h1>
           <button onClick={ handleStart }>Got it!</button>
         </>
-      )}
+      ) }
 
-      {(started && count < 6) && (
+      { (started && count < 6) && (
         <NumberCard
           setCount={ setCount }
           setMagic={ setMagic }
@@ -35,10 +35,10 @@ function App() {
       )
       }
 
-      {count === 6 && (
+      { count === 6 && (
         <>
           <h3>Your number is</h3>
-          <h1>{magic || 64}</h1>
+          <h1>{ magic || 64 }</h1>
           <button onClick={ handleAgain }>Play again</button>
         </>
       )

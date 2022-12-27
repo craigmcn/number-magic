@@ -41,9 +41,9 @@ function NumberCard({ setCount, setMagic }: INumberCardProps) {
     <>
       <h1>Is it any of these numbers?</h1>
 
-      <p className="number-card">{nextCard.map((n, i) => {
-        return <span key={ i } className="number-card__item">{n}</span>;
-      })}</p>
+      <p className="number-card">{ nextCard.map((n, i) => {
+        return <span key={ i } className="number-card__item">{ n }</span>;
+      }) }</p>
 
       <button style={ { marginRight: '1rem' } } onClick={ handleYes }>Yes!</button>
       <button onClick={ handleNo }>No</button>
