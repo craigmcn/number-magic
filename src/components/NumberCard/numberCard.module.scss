@@ -1,14 +1,25 @@
 .numberCard {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  justify-items: center;
-  margin: 1rem auto;
-  max-width: 24rem;
-}
+  gap: 1rem;
+  grid-template-columns: repeat(5, min-content);
+  justify-content: center;
+  position: relative;
 
-.numberCardItem {
-  font-size: 1.25rem;
-  line-height: 1.75;
-  margin: 0 0.5rem;
-  width: 2em;
+  @media screen and (min-width: 576px) {
+    grid-template-columns: repeat(8, min-content);
+  }
+
+  &Item {
+    font-size: 1.25rem;
+    padding: 0.5em;
+    place-self: center;
+  }
+
+  &Overlay {
+    backdrop-filter: blur(10px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 2
+  }
 }

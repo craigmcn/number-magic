@@ -1,11 +1,13 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear, faRedo, faThumbsUp } from '@fortawesome/pro-light-svg-icons';
+import { getRandomInt } from './lib';
 import Header from './components/Header';
 import NumberCard from './components/NumberCard';
 import css from './App.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRedo, faThumbsUp } from '@fortawesome/pro-light-svg-icons';
 
 function App() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [started, setStarted] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [magic, setMagic] = useState<number>(0);
@@ -20,6 +22,15 @@ function App() {
     setMagic(0);
     setCount(0);
   }, []);
+
+  useEffect(() => {
+    if (loading) {
+      const duration = getRandomInt(200, 600);
+      setTimeout(() => {
+        setLoading(false);
+      }, duration);
+    }
+  }, [loading]);
 
   return (
     <>
@@ -38,6 +49,8 @@ function App() {
 
         { (started && count < 6) && (
           <NumberCard
+            loading={ loading }
+            setLoading={ setLoading }
             setCount={ setCount }
             setMagic={ setMagic }
           />
@@ -46,8 +59,15 @@ function App() {
         { count === 6 && (
           <>
             <h3>Your number is</h3>
-            <h1>{ magic || 64 }</h1>
-            <button className="large" onClick={ handleAgain }>
+            { loading && (
+              <div style={ { fontSize: '3.2em', height: '1.1em', margin: '0.67em' } }>
+                <FontAwesomeIcon icon={ faGear } spin />
+              </div>
+            ) }
+
+            { !loading && <h1>{ magic || 64 }</h1> }
+
+            <button className="large" onClick={ handleAgain } disabled={ loading }>
               <FontAwesomeIcon icon={ faRedo } fixedWidth className="mr-2" />
               Play again
             </button>
