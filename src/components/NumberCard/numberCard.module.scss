@@ -1,6 +1,7 @@
 .numberCard {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  height: 15rem;
   justify-items: center;
   margin: 1rem auto;
   max-width: 24rem;

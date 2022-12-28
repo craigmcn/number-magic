@@ -147,15 +147,31 @@ button {
 .text-danger {
   color: #f49090;
 
+  :disabled & {
+    color: #ba5a5a;
+  }
+
   @media (prefers-color-scheme: light) {
     color: #b60202;
+
+    :disabled & {
+      color: #510101;
+    }
   }
 }
 .text-success {
   color: #09c809;
 
+  :disabled & {
+    color: #056605;
+  }
+
   @media (prefers-color-scheme: light) {
     color: #036803;
+
+    :disabled & {
+      color: #000500;
+    }
   }
 }
 .text-sm {

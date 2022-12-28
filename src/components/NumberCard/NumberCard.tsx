@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
 import { sliceRandomElement } from '../../lib';
+import Loading from '../Loading';
 import NumberCardItem from './NumberCardItem';
 import css from './numberCard.module.scss';
 
@@ -15,11 +16,13 @@ const numbers = [
 ];
 
 interface INumberCardProps {
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   setCount: Dispatch<SetStateAction<number>>;
   setMagic: Dispatch<SetStateAction<number>>;
 }
 
-function NumberCard({ setCount, setMagic }: INumberCardProps) {
+function NumberCard({ loading, setLoading, setCount, setMagic }: INumberCardProps) {
   const { element, array } = sliceRandomElement<number[]>(numbers);
   const [nextCard, setNextCard] = useState<number[]>(element);
   const [numberArray, setNumberArray] = useState<number[][]>(array);
@@ -31,29 +34,39 @@ function NumberCard({ setCount, setMagic }: INumberCardProps) {
   }, [numberArray]);
 
   const handleYes = useCallback(() => {
+    setLoading(true);
     setMagic(magic => magic + nextCard[0]);
     setCount(count => count + 1);
     getNextCard();
-  }, [nextCard, setMagic, setCount, getNextCard]);
+  }, [nextCard, setLoading, setMagic, setCount, getNextCard]);
 
   const handleNo = useCallback(() => {
+    setLoading(true);
     setCount(count => count + 1);
     getNextCard();
-  }, [setCount, getNextCard]);
+  }, [setLoading, setCount, getNextCard]);
 
   return (
     <>
       <h1>Is it any of these numbers?</h1>
 
-      <p className={ css.numberCard }>
-        { nextCard.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
-      </p>
+      { loading && (
+        <div style={ { alignItems: 'center', display: 'flex', height: '15rem', justifyContent: 'center', margin: '1rem auto' } }>
+          <Loading size="3x" />
+        </div>
+      ) }
 
-      <button className="large mr-4" onClick={ handleYes }>
+      { !loading && (
+        <p className={ css.numberCard }>
+          { nextCard.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
+        </p>
+      ) }
+
+      <button className="large mr-4" onClick={ handleYes } disabled={ loading }>
         <FontAwesomeIcon icon={ faCircleCheck } fixedWidth className="text-success mr-2" />
         Yes!
       </button>
-      <button className="large" onClick={ handleNo }>
+      <button className="large" onClick={ handleNo } disabled={ loading }>
         <FontAwesomeIcon icon={ faCircleXmark } fixedWidth className="text-danger mr-2" />
         No
       </button>
