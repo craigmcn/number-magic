@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
 import { sliceRandomElement } from '../../lib';
-import Loading from '../Loading';
 import NumberCardItem from './NumberCardItem';
 import css from './numberCard.module.scss';
 
@@ -50,17 +49,10 @@ function NumberCard({ loading, setLoading, setCount, setMagic }: INumberCardProp
     <>
       <h1>Is it any of these numbers?</h1>
 
-      { loading && (
-        <div style={ { alignItems: 'center', display: 'flex', height: '15rem', justifyContent: 'center', margin: '1rem auto' } }>
-          <Loading size="3x" />
-        </div>
-      ) }
-
-      { !loading && (
-        <p className={ css.numberCard }>
-          { nextCard.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
-        </p>
-      ) }
+      <p className={ css.numberCard }>
+        { loading && <span className={ css.numberCardOverlay } /> }
+        { nextCard.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
+      </p>
 
       <button className="large mr-4" onClick={ handleYes } disabled={ loading }>
         <FontAwesomeIcon icon={ faCircleCheck } fixedWidth className="text-success mr-2" />

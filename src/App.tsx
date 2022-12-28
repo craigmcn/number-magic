@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRedo, faThumbsUp } from '@fortawesome/pro-light-svg-icons';
+import { faGear, faRedo, faThumbsUp } from '@fortawesome/pro-light-svg-icons';
 import { getRandomInt } from './lib';
 import Header from './components/Header';
-import Loading from './components/Loading';
 import NumberCard from './components/NumberCard';
 import css from './App.module.scss';
 
@@ -14,7 +13,6 @@ function App() {
   const [magic, setMagic] = useState<number>(0);
 
   const handleStart = useCallback(() => {
-    setLoading(true);
     setStarted(true);
   }, []);
 
@@ -63,7 +61,7 @@ function App() {
             <h3>Your number is</h3>
             { loading && (
               <div style={ { fontSize: '3.2em', height: '1.1em', margin: '0.67em' } }>
-                <Loading size="sm" />
+                <FontAwesomeIcon icon={ faGear } spin />
               </div>
             ) }
 
