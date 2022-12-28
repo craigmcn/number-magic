@@ -1,5 +1,9 @@
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
-import { sliceRandomElement } from '../lib';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
+import { sliceRandomElement } from '../../lib';
+import NumberCardItem from './NumberCardItem';
+import css from './numberCard.module.scss';
 
 const numbers = [
   [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63],
@@ -41,12 +45,18 @@ function NumberCard({ setCount, setMagic }: INumberCardProps) {
     <>
       <h1>Is it any of these numbers?</h1>
 
-      <p className="number-card">{ nextCard.map((n, i) => {
-        return <span key={ i } className="number-card__item">{ n }</span>;
-      }) }</p>
+      <p className={ css.numberCard }>
+        { nextCard.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
+      </p>
 
-      <button style={ { marginRight: '1rem' } } onClick={ handleYes }>Yes!</button>
-      <button onClick={ handleNo }>No</button>
+      <button className="large mr-4" onClick={ handleYes }>
+        <FontAwesomeIcon icon={ faCircleCheck } fixedWidth className="text-success mr-2" />
+        Yes!
+      </button>
+      <button className="large" onClick={ handleNo }>
+        <FontAwesomeIcon icon={ faCircleXmark } fixedWidth className="text-danger mr-2" />
+        No
+      </button>
     </>
   );
 }
