@@ -2,6 +2,7 @@ import { Transition, TransitionStatus } from 'react-transition-group';
 import { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkLarge } from '@fortawesome/pro-light-svg-icons';
+import { useOnClickOutside } from 'usehooks-ts';
 import { version } from '../../../package.json';
 import Logo from '../Logo';
 import headerCss from '../Header/header.module.scss';
@@ -29,6 +30,12 @@ interface IOffCanvasProps {
 
 function OffCanvas({ open, close }: IOffCanvasProps) {
   const nodeRef = useRef(null);
+
+  const handleClickOutside = () => {
+    close();
+  };
+
+  useOnClickOutside(nodeRef, handleClickOutside);
 
   return (
     <Transition nodeRef={ nodeRef } in={ open } timeout={ duration }>

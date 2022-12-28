@@ -50,6 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["sass", "npm:1.57.1"],\
             ["ts-pnp", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:1.2.0"],\
             ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
+            ["usehooks-ts", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:2.9.1"],\
             ["vite", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:4.0.3"]\
           ],\
           "linkType": "SOFT"\
@@ -3608,6 +3609,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["sass", "npm:1.57.1"],\
             ["ts-pnp", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:1.2.0"],\
             ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
+            ["usehooks-ts", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:2.9.1"],\
             ["vite", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:4.0.3"]\
           ],\
           "linkType": "SOFT"\
@@ -4636,6 +4638,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["uri-js", "npm:4.4.1"],\
             ["punycode", "npm:2.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["usehooks-ts", [\
+        ["npm:2.9.1", {\
+          "packageLocation": "./.yarn/cache/usehooks-ts-npm-2.9.1-14c625587f-36f1e4142c.zip/node_modules/usehooks-ts/",\
+          "packageDependencies": [\
+            ["usehooks-ts", "npm:2.9.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:2.9.1", {\
+          "packageLocation": "./.yarn/__virtual__/usehooks-ts-virtual-7d63819d85/0/cache/usehooks-ts-npm-2.9.1-14c625587f-36f1e4142c.zip/node_modules/usehooks-ts/",\
+          "packageDependencies": [\
+            ["usehooks-ts", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:2.9.1"],\
+            ["@types/react", "npm:18.0.26"],\
+            ["@types/react-dom", "npm:18.0.10"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
