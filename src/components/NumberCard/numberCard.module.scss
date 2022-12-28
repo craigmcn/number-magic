@@ -1,0 +1,14 @@
+.numberCard {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: center;
+  margin: 1rem auto;
+  max-width: 24rem;
+}
+
+.numberCardItem {
+  font-size: 1.25rem;
+  line-height: 1.75;
+  margin: 0 0.5rem;
+  width: 2em;
+}

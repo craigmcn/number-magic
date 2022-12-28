@@ -1,0 +1,20 @@
+.svg {
+  display: inline-block;
+}
+
+.fillBg {
+  fill: black;
+}
+
+.fillFg {
+  fill: #4cb5fa;
+}
+
+@media (prefers-color-scheme: dark) {
+  .fillBg {
+    fill: white;
+  }
+  .fillFg {
+    fill: #005b99;
+  }
+}

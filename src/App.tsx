@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react';
-import './App.css';
+import Header from './components/Header';
 import NumberCard from './components/NumberCard';
+import css from './App.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRedo, faThumbsUp } from '@fortawesome/pro-light-svg-icons';
 
 function App() {
   const [started, setStarted] = useState<boolean>(false);
@@ -19,31 +22,39 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      { !started && (
-        <>
-          <h1>Think of a number<br />between 1 and 64</h1>
-          <button onClick={ handleStart }>Got it!</button>
-        </>
-      ) }
+    <>
+      <Header />
 
-      { (started && count < 6) && (
-        <NumberCard
-          setCount={ setCount }
-          setMagic={ setMagic }
-        />
-      )
-      }
+      <div className={ css.container }>
+        { !started && (
+          <>
+            <h1>Think of a number<br />between 1 and 64</h1>
+            <button className="large" onClick={ handleStart }>
+              Got it!
+              <FontAwesomeIcon icon={ faThumbsUp } fixedWidth className="ml-2" />
+            </button>
+          </>
+        ) }
 
-      { count === 6 && (
-        <>
-          <h3>Your number is</h3>
-          <h1>{ magic || 64 }</h1>
-          <button onClick={ handleAgain }>Play again</button>
-        </>
-      )
-      }
-    </div>
+        { (started && count < 6) && (
+          <NumberCard
+            setCount={ setCount }
+            setMagic={ setMagic }
+          />
+        ) }
+
+        { count === 6 && (
+          <>
+            <h3>Your number is</h3>
+            <h1>{ magic || 64 }</h1>
+            <button className="large" onClick={ handleAgain }>
+              <FontAwesomeIcon icon={ faRedo } fixedWidth className="mr-2" />
+              Play again
+            </button>
+          </>
+        ) }
+      </div>
+    </>
   );
 }
 

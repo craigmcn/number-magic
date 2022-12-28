@@ -1,0 +1,41 @@
+.header {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  padding: 0.5rem;
+}
+
+.brand {
+  font-weight: 600;
+  font-size: 1.25rem;
+
+  & > a {
+    align-items: center;
+    color: #d7d7db;
+    display: flex;
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:visited {
+      color: #d7d7db;
+    }
+
+    @media screen and (prefers-color-scheme: light) {
+      color: #4a4a4e;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &:visited {
+        color: #4a4a4e;
+      }
+    }
+  }
+}
