@@ -3,18 +3,19 @@
 }
 
 .fillBg {
-  fill: black;
+  fill: white;
 }
 
 .fillFg {
-  fill: #4cb5fa;
+  fill: #005b99;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   .fillBg {
-    fill: white;
+    fill: black;
   }
+
   .fillFg {
-    fill: #005b99;
+    fill: #4cb5fa;
   }
 }

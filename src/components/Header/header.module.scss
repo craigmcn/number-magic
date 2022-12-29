@@ -16,10 +16,10 @@
 
   & > a {
     align-items: center;
-    color: #d7d7db;
     display: flex;
     text-decoration: none;
 
+    &,
     &:hover,
     &:focus,
     &:active,
@@ -28,8 +28,7 @@
     }
 
     @media screen and (prefers-color-scheme: light) {
-      color: #4a4a4e;
-
+      &,
       &:hover,
       &:focus,
       &:active,
