@@ -54,14 +54,16 @@ function NumberCard({ loading, setLoading, setCount, setMagic }: INumberCardProp
         { nextCard.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
       </p>
 
-      <button className="large mr-4" onClick={ handleYes } disabled={ loading }>
-        <FontAwesomeIcon icon={ faCircleCheck } fixedWidth className="text-success mr-2" />
-        Yes!
-      </button>
-      <button className="large" onClick={ handleNo } disabled={ loading }>
-        <FontAwesomeIcon icon={ faCircleXmark } fixedWidth className="text-danger mr-2" />
-        No
-      </button>
+      <p className="mt-6">
+        <button className="large mr-4" onClick={ handleYes } disabled={ loading }>
+          <FontAwesomeIcon icon={ faCircleCheck } fixedWidth className="text-success mr-2" />
+          Yes!
+        </button>
+        <button className="large" onClick={ handleNo } disabled={ loading }>
+          <FontAwesomeIcon icon={ faCircleXmark } fixedWidth className="text-danger mr-2" />
+          No
+        </button>
+      </p>
     </>
   );
 }

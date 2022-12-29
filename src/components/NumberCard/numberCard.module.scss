@@ -1,16 +1,21 @@
 .numberCard {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(5, min-content);
+  gap: 0.25rem;
+  grid-template-columns: repeat(6, min-content);
   justify-content: center;
   position: relative;
 
+  @media screen and (min-width: 339px) {
+    font-size: 1.25rem;
+    gap: 0.5rem;
+  }
+
   @media screen and (min-width: 576px) {
+    gap: 1rem;
     grid-template-columns: repeat(8, min-content);
   }
 
   &Item {
-    font-size: 1.25rem;
     padding: 0.5em;
     place-self: center;
   }
