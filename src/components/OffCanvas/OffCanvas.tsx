@@ -8,7 +8,7 @@ import Logo from '../Logo';
 import headerCss from '../Header/header.module.scss';
 import css from './offCanvas.module.scss';
 
-const duration = 300;
+const duration = 200;
 
 const defaultStyle = {
   transition: `left ${duration}ms ease-in-out`,
@@ -30,12 +30,7 @@ interface IOffCanvasProps {
 
 function OffCanvas({ open, close }: IOffCanvasProps) {
   const nodeRef = useRef(null);
-
-  const handleClickOutside = () => {
-    close();
-  };
-
-  useOnClickOutside(nodeRef, handleClickOutside);
+  useOnClickOutside(nodeRef, close);
 
   return (
     <Transition nodeRef={ nodeRef } in={ open } timeout={ duration }>

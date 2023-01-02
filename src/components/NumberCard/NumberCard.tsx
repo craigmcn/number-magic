@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
-import { sliceRandomElement } from '../../lib';
+import { Transition, TransitionStatus } from 'react-transition-group';
+import { DURATION, sliceRandomElement } from '../../lib';
 import NumberCardItem from './NumberCardItem';
 import css from './numberCard.module.scss';
 
@@ -14,6 +15,19 @@ const numbers = [
   [32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63],
 ];
 
+const defaultStyle = {
+  transition: `opacity ${DURATION}ms ease-in-out`,
+  opacity: 0,
+};
+
+const transitionStyles: Record<TransitionStatus, object> = {
+  entering: { opacity: 1 },
+  entered: { opacity: 1 },
+  exiting: { opacity: defaultStyle.opacity },
+  exited: { opacity: defaultStyle.opacity },
+  unmounted: { opacity: defaultStyle.opacity },
+};
+
 interface INumberCardProps {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
@@ -25,11 +39,14 @@ function NumberCard({ loading, setLoading, setCount, setMagic }: INumberCardProp
   const { element, array } = sliceRandomElement<number[]>(numbers);
   const [nextCard, setNextCard] = useState<number[]>(element);
   const [numberArray, setNumberArray] = useState<number[][]>(array);
+  const overlayRef = useRef(null);
 
   const getNextCard = useCallback(() => {
     const { element, array } = sliceRandomElement<number[]>(numberArray);
-    setNextCard(element);
-    setNumberArray(array);
+    setTimeout(() => { // just slow it down a bit
+      setNextCard(element);
+      setNumberArray(array);
+    }, DURATION);
   }, [numberArray]);
 
   const handleYes = useCallback(() => {
@@ -49,10 +66,18 @@ function NumberCard({ loading, setLoading, setCount, setMagic }: INumberCardProp
     <>
       <h1>Is it any of these numbers?</h1>
 
-      <p className={ css.numberCard }>
-        { loading && <span className={ css.numberCardOverlay } /> }
+      <div className={ css.numberCard }>
+        <Transition nodeRef={ overlayRef } in={ loading } timeout={ DURATION }>
+          { state => (
+            <span ref={ overlayRef } className={ css.numberCardOverlay } style={ {
+              ...defaultStyle,
+              ...transitionStyles[state],
+            } } />
+          ) }
+        </Transition>
+
         { nextCard.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
-      </p>
+      </div>
 
       <p className="mt-6">
         <button className="large mr-4" onClick={ handleYes } disabled={ loading }>
