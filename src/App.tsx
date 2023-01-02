@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faRedo, faThumbsUp } from '@fortawesome/pro-light-svg-icons';
-import { getRandomInt } from './lib';
+import { DURATION } from './lib';
 import Header from './components/Header';
 import NumberCard from './components/NumberCard';
 import css from './App.module.scss';
@@ -25,10 +25,9 @@ function App() {
 
   useEffect(() => {
     if (loading) {
-      const duration = getRandomInt(200, 600);
       setTimeout(() => {
         setLoading(false);
-      }, duration);
+      }, DURATION);
     }
   }, [loading]);
 
