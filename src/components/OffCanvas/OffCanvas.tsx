@@ -1,10 +1,11 @@
 import { Transition, TransitionStatus } from 'react-transition-group';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkLarge } from '@fortawesome/pro-light-svg-icons';
-import { useOnClickOutside } from 'usehooks-ts';
+import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 import { version } from '../../../package.json';
 import Logo from '../Logo';
+import Switch from '../Switch';
 import headerCss from '../Header/header.module.scss';
 import css from './offCanvas.module.scss';
 
@@ -32,6 +33,12 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
   const nodeRef = useRef(null);
   useOnClickOutside(nodeRef, close);
 
+  const [isManual, setIsManual] = useLocalStorage('manual', false);
+
+  const toggleManual = useCallback(() => {
+    setIsManual((prevValue: boolean) => !prevValue);
+  }, [setIsManual]);
+
   return (
     <Transition nodeRef={ nodeRef } in={ open } timeout={ duration }>
       { state => (
@@ -54,6 +61,8 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
           </div>
 
           <h1 className='text-xl'>Number Magic</h1>
+
+          <p><Switch checked={ isManual } onChange={ toggleManual }>Toggle manual cards</Switch></p>
 
           <div className='text-muted text-sm pb-2'>
             Version { version }

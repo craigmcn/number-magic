@@ -11,8 +11,11 @@
   }
 
   @media screen and (min-width: 576px) {
-    gap: 1rem;
     grid-template-columns: repeat(8, min-content);
+  }
+
+  @media screen and (min-width: 768px) {
+    gap: 1rem;
   }
 
   &Item {
@@ -22,9 +25,11 @@
 
   &Overlay {
     backdrop-filter: blur(10px);
+    grid-column-start: 1;
+    grid-column-end: -1;
+    grid-row-start: 1;
     height: 100%;
     position: absolute;
     width: 100%;
-    z-index: 2
   }
 }
