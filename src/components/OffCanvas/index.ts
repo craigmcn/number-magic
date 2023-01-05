@@ -1,3 +1,3 @@
 import OffCanvas from './OffCanvas';
 
-export default OffCanvas;
+export { OffCanvas as default };
