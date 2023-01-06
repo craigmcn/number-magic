@@ -1,0 +1,263 @@
+$spacing: 1rem;
+
+$primary: #4cb5fa;
+$primary-active: darken($primary, 12%);
+$primary-light: #005b99;
+$primary-light-active: darken($primary-light, 12%);
+$danger: #f49090;
+$danger-inactive: darken(desaturate($danger, 40%), 35%);
+$danger-light: #b60202;
+$danger-light-inactive: lighten(desaturate($danger-light, 60%), 40%);
+$success: #09c809;
+$success-inactive: darken(desaturate($success, 20%), 20%);
+$success-light: #036803;
+$success-light-inactive: lighten(desaturate($success-light, 60%), 40%);
+$black-0: #808080;
+$black-50: #7e7e7e;
+$black-100: #777777;
+$black-200: #6d6d6d;
+$black-300: #646464;
+$black-400: #5a5a5a;
+$black-500: #515151;
+$black-600: #484848;
+$black-700: #3e3e3e;
+$black-800: #353535;
+$black-900: #2b2b2b;
+$black-1000: #222222;
+$black-1100: #121212;
+$white-0: #808080;
+$white-50: #838383;
+$white-100: #8d8d8d;
+$white-200: #9a9a9a;
+$white-300: #a6a6a6;
+$white-400: #b3b3b3;
+$white-500: #c0c0c0;
+$white-600: #cdcdcd;
+$white-700: #d9d9d9;
+$white-800: #e6e6e6;
+$white-900: #f2f2f2;
+$white-1000: #fafafa;
+$white-1100: #fff;
+
+
+:root {
+  --color-default: #{$white-800};
+  --bg-color-default: #{$black-1000};
+  --color-primary: #{$primary};
+  --color-primary-hover: #{$primary-active};
+  --color-danger: #{$danger};
+  --color-danger-light: #{$danger-inactive};
+  --color-success: #{$success};
+  --color-success-light: #{$success-inactive};
+  --color-muted: #{$black-0};
+  --btn-bg-color: #{$black-1100};
+  --btn-border-color: #{$black-800};
+  --logo-fg-color: #{$primary};
+  --logo-bg-color: black;
+  --logo-border-color: #{$black-800};
+  --oc-bg-color: black;
+  --oc-border-color: #{$black-800};
+
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
+    Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  font-feature-settings: normal;
+
+  color-scheme: light dark;
+  color: var(--color-default);
+  background-color: var(--bg-color-default);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  @media screen and (prefers-color-scheme: light) {
+    --color-default: #{$black-1000};
+    --bg-color-default: #{$white-1000};
+    --color-primary: #{$primary-light};
+    --color-primary-hover: #{$primary-light-active};
+    --color-danger: #{$danger-light};
+    --color-danger-light: #{$danger-light-inactive};
+    --color-success: #{$success-light};
+    --color-success-light: #{$success-light-inactive};
+    --btn-bg-color: #{$white-1100};
+    --btn-border-color: #{$white-900};
+    --logo-fg-color: #{$primary-light};
+    --logo-border-color: transparent;
+    --logo-bg-color: white;
+    --oc-bg-color: #{$white-900};
+    --oc-border-color: #{$white-800};
+  }
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+/* https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: inherit;
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 240px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.1;
+
+  @media screen and (min-width: 339px) {
+    font-size: 2.4em;
+  }
+
+  @media screen and (min-width: 576px) {
+    font-size: 3.2em;
+  }
+}
+
+[type=checkbox], [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+button {
+  background-color: var(--btn-bg-color);
+  border-radius: 0.25em;
+  border: 1px solid var(--btn-border-color);
+  color: inherit;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 0.4em 0.8em;
+  transition: border-color 0.25s;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+  // &:focus,
+  // &:focus-visible {
+  //   outline: 4px auto -webkit-focus-ring-color;
+  // }
+
+  &.large {
+    font-size: 1.2em;
+    padding: 0.6em 1.2em;
+
+    @media screen and (min-width: 339px) {
+      font-size: 1.4em;
+      padding: 0.8em 1.6em;
+    }
+  }
+
+  &.condensed {
+    padding: 0.6em;
+  }
+
+  &.danger {
+    &:active,
+    &:hover {
+      border-color: var(--color-danger);
+    }
+  }
+
+  &.success {
+    &:active,
+    &:hover {
+      border-color: var(--color-success);
+    }
+  }
+
+  @media screen and (min-width: 339px) {
+    padding: 0.6em 1.2em;
+  }
+}
+
+#root {
+  width: 100%;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute!important;
+  width: 1px!important;
+  height: 1px!important;
+  padding: 0!important;
+  margin: -1px!important;
+  overflow: hidden!important;
+  clip: rect(0,0,0,0)!important;
+  white-space: nowrap!important;
+  border: 0!important;
+}
+
+/* Utility classes */
+.mt-4 {
+  margin-top: $spacing;
+}
+.mt-6 {
+  margin-top: $spacing * 1.5;
+}
+.mr-2 {
+  margin-right: calc($spacing / 2);
+}
+.mr-4 {
+  margin-right: $spacing;
+}
+.ml-2 {
+  margin-left: calc($spacing / 2);
+}
+.pb-2 {
+  padding-bottom: calc($spacing / 2);
+}
+.text-muted {
+  color: var(--color-muted);
+}
+.text-danger {
+  color: var(--color-danger);
+
+  :disabled & {
+    color: var(--color-danger-light);
+  }
+}
+.text-success {
+  color: var(--color-success);
+
+  :disabled & {
+    color: var(--color-success-light);
+  }
+}
+.text-sm {
+  font-size: 0.875em;
+}
+.text-xl {
+  font-size: 1.25em;
+}
+.font-semibold {
+  font-weight: 600;
+}

@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
-import { useReadLocalStorage } from 'usehooks-ts';
-import { DURATION, NUMBERS, sliceRandomElement } from './lib';
-import Header from './components/Header';
-import Start from './components/Start';
-import NumberCard from './components/NumberCard';
-import Result from './components/Result';
-import css from './App.module.scss';
+import { DURATION, NUMBERS, sliceRandomElement } from '../lib';
+import Header from './Header';
+import Start from './Start';
+import NumberCard from './NumberCard';
+import Result from './Result';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,7 +13,6 @@ function App() {
   const [magic, setMagic] = useState<number[][]>([]);
   const [current, setCurrent] = useState<number[]>([]);
   const [numberArray, setNumberArray] = useState<number[][]>(NUMBERS);
-  const isManual = useReadLocalStorage('manual');
 
   const initNumbers = useCallback(() => {
     const { element, array } = sliceRandomElement<number[]>(NUMBERS);
@@ -29,10 +26,10 @@ function App() {
     setNumberArray(array);
   }, [numberArray]);
 
-  const slowNextCard = useCallback(() => {
+  const slowNextCard = useCallback((slow = true) => {
     setTimeout(() => { // match with transition duration
       getNextCard();
-    }, DURATION);
+    }, slow ? DURATION : 100);
   }, [getNextCard]);
 
   const handleStart = useCallback(() => {
@@ -40,14 +37,14 @@ function App() {
   }, []);
 
   const handleYes = useCallback(() => {
-    setLoading(numberArray.length > 0);
+    setLoading(true);
     setMagic(magic => [...magic, current]);
-    slowNextCard();
+    slowNextCard(numberArray.length > 0);
   }, [numberArray.length, current, setLoading, setMagic, slowNextCard]);
 
   const handleNo = useCallback(() => {
-    setLoading(numberArray.length > 0);
-    slowNextCard();
+    setLoading(true);
+    slowNextCard(numberArray.length > 0);
   }, [numberArray.length, setLoading, slowNextCard]);
 
   const handleAgain = useCallback(() => {
@@ -74,7 +71,7 @@ function App() {
     <>
       <Header />
 
-      <div className={ css.container }>
+      <div className="container">
         { !started && <Start handleStart={ handleStart } /> }
 
         { (started && current) && (
@@ -84,13 +81,13 @@ function App() {
               numbers={ current }
             />
 
-            <p className={ isManual ? 'mt-4' : 'mt-6' }>
-              <button className={ `mr-4${isManual ? '' : ' large'}` } onClick={ handleYes } disabled={ loading }>
+            <p className="mt-6">
+              <button className="large success mr-4" onClick={ handleYes } disabled={ loading }>
                 <FontAwesomeIcon icon={ faCircleCheck } fixedWidth className="text-success mr-2" />
                 Yes!
               </button>
 
-              <button className={ isManual ? '' : 'large' } onClick={ handleNo } disabled={ loading }>
+              <button className="large danger" onClick={ handleNo } disabled={ loading }>
                 <FontAwesomeIcon icon={ faCircleXmark } fixedWidth className="text-danger mr-2" />
                 No
               </button>

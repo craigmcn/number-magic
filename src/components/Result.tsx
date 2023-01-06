@@ -15,16 +15,7 @@ function Result({ result, handleAgain }: IResultProps) {
   return (
     <>
       { isManual && (
-        <>
-          <div style={ { position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)' } }>
-            <button onClick={ handleAgain }>
-              <FontAwesomeIcon icon={ faRedo } fixedWidth className="mr-2" />
-              Play again
-            </button>
-          </div>
-
-          <ResultGrid result={ result } />
-        </>
+        <ResultGrid result={ result } />
       ) }
 
       { !isManual && (
@@ -32,13 +23,13 @@ function Result({ result, handleAgain }: IResultProps) {
           <h3>Your number is</h3>
 
           <h1>{ magic || 64 }</h1>
-
-          <button className="large" onClick={ handleAgain }>
-            <FontAwesomeIcon icon={ faRedo } fixedWidth className="mr-2" />
-            Play again
-          </button>
         </>
       ) }
+
+      <button className="large mt-4" onClick={ handleAgain }>
+        <FontAwesomeIcon icon={ faRedo } fixedWidth className="mr-2" />
+        Play again
+      </button>
     </>
   );
 }

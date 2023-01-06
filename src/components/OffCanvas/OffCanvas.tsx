@@ -7,6 +7,7 @@ import { version } from '../../../package.json';
 import Logo from '../Logo';
 import Switch from '../Switch';
 import headerCss from '../Header/header.module.scss';
+import logoCss from '../Logo/logo.module.scss';
 import css from './offCanvas.module.scss';
 
 const duration = 200;
@@ -46,7 +47,7 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
           ...defaultStyle,
           ...transitionStyles[state],
         } }>
-          <div className='d-flex'>
+          <div className={ css.header }>
             <button className="condensed mr-2" onClick={ close }>
               <FontAwesomeIcon icon={ faXmarkLarge } fixedWidth />
               <span className="visually-hidden">Close menu</span>
@@ -54,7 +55,7 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
 
             <div className={ headerCss.brand }>
               <a href="/">
-                <Logo className="mr-2" />
+                <Logo className={ `${logoCss.outlined} mr-2` } />
                 <span className='text-xl font-semibold'>craigmcn</span>
               </a>
             </div>
@@ -62,7 +63,7 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
 
           <h1 className='text-xl'>Number Magic</h1>
 
-          <p><Switch checked={ isManual } onChange={ toggleManual }>Toggle manual cards</Switch></p>
+          <p><Switch checked={ isManual } onChange={ toggleManual }>Magic</Switch></p>
 
           <div className='text-muted text-sm pb-2'>
             Version { version }

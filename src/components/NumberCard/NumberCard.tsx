@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { Transition, TransitionStatus } from 'react-transition-group';
-import { useReadLocalStorage } from 'usehooks-ts';
 import { DURATION } from '../../lib';
 import NumberCardItem from './NumberCardItem';
 import css from './numberCard.module.scss';
@@ -25,11 +24,10 @@ interface INumberCardProps {
 
 function NumberCard({ loading, numbers }: INumberCardProps) {
   const overlayRef = useRef(null);
-  const isManual = useReadLocalStorage('manual');
 
   return (
     <>
-      { !isManual && <h1>Is it any of these numbers?</h1> }
+      <h1>Is it any of these numbers?</h1>
 
       <div className={ css.numberCard }>
         <Transition nodeRef={ overlayRef } in={ loading } timeout={ DURATION }>
