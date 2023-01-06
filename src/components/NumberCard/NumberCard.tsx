@@ -39,7 +39,7 @@ function NumberCard({ loading, numbers }: INumberCardProps) {
           ) }
         </Transition>
 
-        { numbers?.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
+        { numbers.map((n, i) => <NumberCardItem key={ i } number={ n } />) }
       </div>
     </>
   );

@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
-import { DURATION, NUMBERS, sliceRandomElement } from '../lib';
-import Header from './Header';
-import Start from './Start';
-import NumberCard from './NumberCard';
-import Result from './Result';
+import { ErrorBoundary } from 'react-error-boundary';
+import { DURATION, NUMBERS, sliceRandomElement } from '../../lib';
+import Header from '../Header';
+import Start from '../Start';
+import ErrorHandler from '../ErrorHandler';
+import NumberCard from '../NumberCard';
+import Result from '../Result';
+import css from './App.module.scss';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,15 +74,17 @@ function App() {
     <>
       <Header />
 
-      <div className="container">
+      <main className={ css.container }>
         { !started && <Start handleStart={ handleStart } /> }
 
         { (started && current) && (
           <>
-            <NumberCard
-              loading={ loading }
-              numbers={ current }
-            />
+            <ErrorBoundary FallbackComponent={ ErrorHandler }>
+              <NumberCard
+                loading={ loading }
+                numbers={ current }
+              />
+            </ErrorBoundary>
 
             <p className="mt-6">
               <button className="large success mr-4" onClick={ handleYes } disabled={ loading }>
@@ -96,9 +101,11 @@ function App() {
         ) }
 
         { (started && !current) && (
-          <Result result={ magic } handleAgain={ handleAgain } />
+          <ErrorBoundary FallbackComponent={ ErrorHandler }>
+            <Result result={ magic } handleAgain={ handleAgain } />
+          </ErrorBoundary>
         ) }
-      </div>
+      </main>
     </>
   );
 }
