@@ -3,19 +3,14 @@
 }
 
 .fillBg {
-  fill: white;
+  fill: var(--logo-bg-color);
 }
 
 .fillFg {
-  fill: #005b99;
+  fill: var(--logo-fg-color);
 }
 
-@media (prefers-color-scheme: light) {
-  .fillBg {
-    fill: black;
-  }
-
-  .fillFg {
-    fill: #4cb5fa;
-  }
+.outlined {
+  border: 1px solid var(--logo-border-color);
+  border-radius: 4px;
 }
