@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedo } from '@fortawesome/pro-light-svg-icons';
 import { useReadLocalStorage } from 'usehooks-ts';
-import ResultGrid from './ResultGrid';
+import ErrorBoundary from '../ErrorBoundary';
+import ResultGrid from '../ResultGrid';
 
 interface IResultProps {
   result: number[][];
@@ -15,7 +16,9 @@ function Result({ result, handleAgain }: IResultProps) {
   return (
     <>
       { isManual && (
-        <ResultGrid result={ result } />
+        <ErrorBoundary>
+          <ResultGrid result={ result } />
+        </ErrorBoundary>
       ) }
 
       { !isManual && (

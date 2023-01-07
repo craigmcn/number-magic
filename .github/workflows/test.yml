@@ -1,0 +1,25 @@
+---
+name: Testing
+
+# yamllint disable-line rule:truthy
+on: [push]
+
+jobs:
+  # Vitest, Testing Library, React
+  testing:
+    env:
+      FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      ### DEPS
+      - name: Install modules
+        run: yarn
+
+      ### TEST AND CHECK
+      - name: Run Vitest
+        run: yarn test --silent

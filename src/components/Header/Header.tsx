@@ -17,7 +17,7 @@ function Header() {
   }, []);
 
   return (
-    <div className={ css.header }>
+    <header className={ css.header }>
       <div className={ css.content }>
         <button className="condensed mr-2" onClick={ handleShow }>
           <FontAwesomeIcon icon={ faBars } fixedWidth />
@@ -27,7 +27,7 @@ function Header() {
       </div>
 
       <OffCanvas open={ show } close={ handleHide } />
-    </div>
+    </header>
   );
 }
 
