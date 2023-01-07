@@ -22,4 +22,4 @@ jobs:
 
       ### TEST AND CHECK
       - name: Run Vitest
-        run: yarn test
+        run: yarn test --silent
