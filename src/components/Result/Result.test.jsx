@@ -11,6 +11,14 @@ describe('Result', () => {
     expect(() => render(<Result />)).toThrow('Cannot read properties of undefined (reading \'reduce\')');
   });
 
+  it('renders with no cards selected', () => {
+    render(<Result result={ [] } />);
+
+    expect(screen.getByRole('heading', { name: 'Your number is' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '64' })).toBeInTheDocument(); // default
+    expect(screen.getByRole('button', { name: 'Play again' })).toBeInTheDocument();
+  });
+
   it('renders with content', () => {
     render(<Result result={ result } />);
 
