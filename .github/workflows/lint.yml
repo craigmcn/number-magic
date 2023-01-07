@@ -1,0 +1,23 @@
+---
+name: Linting
+
+# yamllint disable-line rule:truthy
+on: [push]
+
+jobs:
+  # ------------------- ES Lint
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      ### DEPS
+      - name: Install modules
+        run: yarn
+
+      ### TEST AND CHECK
+      - name: Run ESLint
+        run: yarn lint

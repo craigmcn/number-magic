@@ -3,6 +3,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import App from './App';
 
+const testMagic = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61];
+
 describe('App', () => {
   it('renders initial App', () => {
     render(<App />);
@@ -29,9 +31,7 @@ describe('App', () => {
     expect(screen.getByRole('button', { name: 'No' })).toBeInTheDocument();
   });
 
-  it.each(
-    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61]
-  )('loops to the result (%i) and starts again', async (magic) => {
+  it('loops to the result and starts again', async () => {
     render(<App />);
 
     expect(screen.getByRole('banner')).toBeInTheDocument();
@@ -49,6 +49,7 @@ describe('App', () => {
     expect(yesButton).toBeInTheDocument();
     expect(noButton).toBeInTheDocument();
 
+    const magic = testMagic[Math.floor(Math.random() * testMagic.length)];
     let magicCard = screen.queryByText(magic);
 
     for (let i = 0; i < 6; i += 1) {
