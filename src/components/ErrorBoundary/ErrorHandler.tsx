@@ -1,4 +1,4 @@
-import css from './ErrorHandler.module.scss';
+import css from './ErrorBoundary.module.scss';
 
 interface IErrorHandlerProps {
   error: Error;

@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedo } from '@fortawesome/pro-light-svg-icons';
 import { useReadLocalStorage } from 'usehooks-ts';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorHandler from '../ErrorHandler';
+import ErrorBoundary from '../ErrorBoundary';
 import ResultGrid from '../ResultGrid';
 
 interface IResultProps {
@@ -17,7 +16,7 @@ function Result({ result, handleAgain }: IResultProps) {
   return (
     <>
       { isManual && (
-        <ErrorBoundary FallbackComponent={ ErrorHandler }>
+        <ErrorBoundary>
           <ResultGrid result={ result } />
         </ErrorBoundary>
       ) }

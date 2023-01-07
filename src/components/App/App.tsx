@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
-import { ErrorBoundary } from 'react-error-boundary';
 import { DURATION, NUMBERS, sliceRandomElement } from '../../lib';
 import Header from '../Header';
 import Start from '../Start';
-import ErrorHandler from '../ErrorHandler';
+import ErrorBoundary from '../ErrorBoundary';
 import NumberCard from '../NumberCard';
 import Result from '../Result';
 import css from './App.module.scss';
@@ -79,7 +78,7 @@ function App() {
 
         { (started && current) && (
           <>
-            <ErrorBoundary FallbackComponent={ ErrorHandler }>
+            <ErrorBoundary>
               <NumberCard
                 loading={ loading }
                 numbers={ current }
@@ -101,7 +100,7 @@ function App() {
         ) }
 
         { (started && !current) && (
-          <ErrorBoundary FallbackComponent={ ErrorHandler }>
+          <ErrorBoundary>
             <Result result={ magic } handleAgain={ handleAgain } />
           </ErrorBoundary>
         ) }
