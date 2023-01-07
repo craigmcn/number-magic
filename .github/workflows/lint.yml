@@ -7,6 +7,8 @@ on: [push]
 jobs:
   # ------------------- ES Lint
   eslint:
+    env:
+      FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
