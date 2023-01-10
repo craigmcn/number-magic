@@ -3,13 +3,9 @@ import { render, screen } from '@testing-library/react';
 
 import ErrorHandler from './ErrorHandler';
 
-const error = { message: 'Test error message' };
+const error = { name: 'test', message: 'Test error message' };
 
 describe('ErrorHandler', () => {
-  it('renders', () => {
-    render(<ErrorHandler />);
-  });
-
   it('renders with content', () => {
     render(<ErrorHandler error={ error } />);
 

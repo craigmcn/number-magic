@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
 import ResultGrid from './ResultGrid';
 
@@ -7,7 +7,9 @@ const result = [[1], [2], [3]];
 
 describe('ResultGrid', () => {
   it('does not render without result array', () => {
-    expect(() => render(<ResultGrid />)).toThrow('Cannot read properties of undefined (reading \'map\')');
+    render(<ResultGrid result={ [] } />);
+
+    expect(screen.queryByText(/[/w]/)).toBeNull();
   });
 
   it('renders with content', () => {

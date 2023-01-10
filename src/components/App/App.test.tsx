@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { describe, expect, it } from 'vitest';
 
 import App from './App';
 
@@ -14,16 +15,17 @@ describe('App', () => {
     expect(screen.getByRole('button', { name: 'Got it!' })).toBeInTheDocument();
   });
 
-  it('starts correctly', () => {
+  it('starts correctly', async () => {
+    const user = userEvent.setup();
     render(<App />);
 
     expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Think of a number between 1 and 64' })).toBeInTheDocument();
 
-    const startButton = screen.queryByRole('button', { name: 'Got it!' });
+    const startButton = screen.getByRole('button', { name: 'Got it!' });
     expect(startButton).toBeInTheDocument();
 
-    fireEvent.click(startButton);
+    await user.click(startButton);
 
     expect(screen.getByRole('heading', { name: 'Is it any of these numbers?' })).toBeInTheDocument();
     expect(screen.getByText('63')).toBeDefined(); // 63 is on every card
@@ -32,20 +34,21 @@ describe('App', () => {
   });
 
   it('loops to the result and starts again', async () => {
+    const user = userEvent.setup();
     render(<App />);
 
     expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Think of a number between 1 and 64' })).toBeInTheDocument();
 
-    const startButton = screen.queryByRole('button', { name: 'Got it!' });
+    const startButton = screen.getByRole('button', { name: 'Got it!' });
     expect(startButton).toBeInTheDocument();
 
-    fireEvent.click(startButton);
+    await user.click(startButton);
 
     expect(screen.getByRole('heading', { name: 'Is it any of these numbers?' })).toBeInTheDocument();
 
-    const yesButton = screen.queryByRole('button', { name: 'Yes!' });
-    const noButton = screen.queryByRole('button', { name: 'No' });
+    const yesButton = screen.getByRole('button', { name: 'Yes!' });
+    const noButton = screen.getByRole('button', { name: 'No' });
     expect(yesButton).toBeInTheDocument();
     expect(noButton).toBeInTheDocument();
 
@@ -54,9 +57,9 @@ describe('App', () => {
 
     for (let i = 0; i < 6; i += 1) {
       if (magicCard) {
-        fireEvent.click(yesButton);
+        await user.click(yesButton);
       } else {
-        fireEvent.click(noButton);
+        await user.click(noButton);
       }
 
       if (i < 5) {
@@ -70,12 +73,12 @@ describe('App', () => {
     }
 
     expect(screen.getByRole('heading', { name: 'Your number is' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: magic })).toBeInTheDocument(); // total of `result`
+    expect(screen.getByRole('heading', { name: magic.toString() })).toBeInTheDocument(); // total of `result`
 
-    const againButton = screen.queryByRole('button', { name: 'Play again' });
+    const againButton = screen.getByRole('button', { name: 'Play again' });
     expect(againButton).toBeInTheDocument();
 
-    fireEvent.click(againButton);
+    await user.click(againButton);
 
     expect(screen.getByRole('heading', { name: 'Think of a number between 1 and 64' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Got it!' })).toBeInTheDocument();

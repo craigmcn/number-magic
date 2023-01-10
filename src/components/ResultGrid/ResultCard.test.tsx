@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
 import ResultCard from './ResultCard';
 
@@ -7,7 +7,9 @@ const card = [1, 2, 3];
 
 describe('ResultCard', () => {
   it('does not render without card array', () => {
-    expect(() => render(<ResultCard />)).toThrow('Cannot read properties of undefined (reading \'map\')');
+    render(<ResultCard card={ [] } />);
+
+    expect(screen.queryByText(/[/w]/)).toBeNull();
   });
 
   it('renders with content', () => {

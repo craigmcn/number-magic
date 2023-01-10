@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { sliceRandomElement } from '.';
 
 const testArray = [1, 2, 3, 4, 5];
