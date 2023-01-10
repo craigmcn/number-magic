@@ -1,13 +1,13 @@
-import { Transition, TransitionStatus } from 'react-transition-group';
-import { useCallback, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkLarge } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCallback, useRef } from 'react';
+import { Transition, TransitionStatus } from 'react-transition-group';
 import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 import { version } from '../../../package.json';
-import Logo from '../Logo';
-import Switch from '../Switch';
 import headerCss from '../Header/header.module.scss';
+import Logo from '../Logo';
 import logoCss from '../Logo/logo.module.scss';
+import Switch from '../Switch';
 import css from './offCanvas.module.scss';
 
 const duration = 200;
@@ -37,7 +37,7 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
   const [isManual, setIsManual] = useLocalStorage('manual', false);
 
   const toggleManual = useCallback(() => {
-    setIsManual((prevValue: boolean) => !prevValue);
+    setIsManual(prev => !prev);
   }, [setIsManual]);
 
   return (

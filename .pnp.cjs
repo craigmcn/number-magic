@@ -31,11 +31,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fortawesome/fontawesome-svg-core", "npm:6.2.1"],\
             ["@fortawesome/pro-light-svg-icons", "npm:6.2.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-light-svg-icons%2F-%2F6.2.1%2Fpro-light-svg-icons-6.2.1.tgz"],\
             ["@fortawesome/react-fontawesome", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:0.2.0"],\
+            ["@testing-library/dom", "npm:8.19.1"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:13.4.0"],\
+            ["@testing-library/user-event", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:14.4.3"],\
             ["@types/react", "npm:18.0.26"],\
             ["@types/react-dom", "npm:18.0.10"],\
             ["@types/react-transition-group", "npm:4.4.5"],\
+            ["@types/testing-library__jest-dom", "npm:5.14.5"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:5.47.1"],\
             ["@typescript-eslint/parser", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:5.47.1"],\
             ["@vitejs/plugin-react", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:3.0.0"],\
@@ -936,6 +939,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/react",\
             "react-dom",\
             "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@testing-library/user-event", [\
+        ["npm:14.4.3", {\
+          "packageLocation": "./.yarn/cache/@testing-library-user-event-npm-14.4.3-2d1a75355f-852c48ea6d.zip/node_modules/@testing-library/user-event/",\
+          "packageDependencies": [\
+            ["@testing-library/user-event", "npm:14.4.3"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:14.4.3", {\
+          "packageLocation": "./.yarn/__virtual__/@testing-library-user-event-virtual-2097f63e9d/0/cache/@testing-library-user-event-npm-14.4.3-2d1a75355f-852c48ea6d.zip/node_modules/@testing-library/user-event/",\
+          "packageDependencies": [\
+            ["@testing-library/user-event", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:14.4.3"],\
+            ["@testing-library/dom", "npm:8.19.1"],\
+            ["@types/testing-library__dom", null]\
+          ],\
+          "packagePeers": [\
+            "@testing-library/dom",\
+            "@types/testing-library__dom"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4610,11 +4635,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fortawesome/fontawesome-svg-core", "npm:6.2.1"],\
             ["@fortawesome/pro-light-svg-icons", "npm:6.2.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-light-svg-icons%2F-%2F6.2.1%2Fpro-light-svg-icons-6.2.1.tgz"],\
             ["@fortawesome/react-fontawesome", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:0.2.0"],\
+            ["@testing-library/dom", "npm:8.19.1"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:13.4.0"],\
+            ["@testing-library/user-event", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:14.4.3"],\
             ["@types/react", "npm:18.0.26"],\
             ["@types/react-dom", "npm:18.0.10"],\
             ["@types/react-transition-group", "npm:4.4.5"],\
+            ["@types/testing-library__jest-dom", "npm:5.14.5"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:5.47.1"],\
             ["@typescript-eslint/parser", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:5.47.1"],\
             ["@vitejs/plugin-react", "virtual:7fc42d10c6ae962bf4d7b4fe2bdfbe09877f65bda9a489e63c017f51772b4d210385f448cea6386fab363c7a4316430c8ea30a23a82bac699b543399b40c8195#npm:3.0.0"],\

@@ -1,11 +1,11 @@
-import { useId } from 'react';
+import React, { useId } from 'react';
 import css from './switch.module.scss';
 
 interface ISwitchProps {
   id?: string;
   name?: string;
   children: React.ReactNode;
-  checked: boolean;
+  checked?: boolean;
   onChange: () => void;
 }
 
@@ -16,7 +16,7 @@ function Switch({ id, name, children, checked, onChange }: ISwitchProps) {
   return (
     <span className={ css.switch }>
       <label>
-        <input id={ inputId } name={ name || inputId } type="checkbox" checked={ checked } onChange={ onChange } />
+        <input id={ inputId } name={ name || inputId } type="checkbox" defaultChecked={ checked } onChange={ onChange } />
         <span className={ css.slider }></span>
         { children }
       </label>
