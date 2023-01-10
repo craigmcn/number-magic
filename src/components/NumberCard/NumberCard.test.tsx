@@ -10,7 +10,7 @@ describe('NumberCard', () => {
     render(<NumberCard loading={ false } numbers={ [] } />);
 
     expect(screen.getByRole('heading', { name: 'Is it any of these numbers?' })).toBeInTheDocument();
-    expect(screen.queryByText('63')).not.toBeInTheDocument();
+    expect(screen.queryByText(/[/w]/)).toBeNull();
   });
 
   it('renders with content', () => {

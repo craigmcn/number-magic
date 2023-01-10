@@ -9,7 +9,7 @@ describe('ResultGrid', () => {
   it('does not render without result array', () => {
     render(<ResultGrid result={ [] } />);
 
-    expect(screen.queryByText('63')).not.toBeInTheDocument();
+    expect(screen.queryByText(/[/w]/)).toBeNull();
   });
 
   it('renders with content', () => {
