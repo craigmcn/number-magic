@@ -1,25 +1,36 @@
 ---
-name: Testing
+name: Test
 
-# yamllint disable-line rule:truthy
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
-  # Vitest, Testing Library, React
-  testing:
+  test:
+    runs-on: ubuntu-latest
     env:
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
+          cache: 'yarn'
 
-      ### DEPS
-      - name: Install modules
-        run: yarn
+      - name: Install dependencies
+        run: yarn install --immutable
 
-      ### TEST AND CHECK
-      - name: Run Vitest
-        run: yarn test --silent
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn coverage

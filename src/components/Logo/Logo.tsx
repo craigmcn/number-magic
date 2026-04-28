@@ -1,6 +1,7 @@
+import { type HTMLAttributes } from 'react';
 import css from './logo.module.scss';
 
-function Logo({ className }: React.HTMLAttributes<SVGElement>) {
+function Logo({ className }: HTMLAttributes<SVGElement>) {
   return (
     <svg className={ `${css.svg}${className ? ' '+className : ''}` } xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="40">
       <rect className={ css.fillBg } x="0" width="512" height="512" rx="51.2" />
