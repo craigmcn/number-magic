@@ -23,6 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
-# Yarn Zero-installs
+*.tsbuildinfo
+
+# Yarn
 .yarn/unplugged
 .yarn/build-state.yml
+.pnp.cjs
+.pnp.loader.mjs

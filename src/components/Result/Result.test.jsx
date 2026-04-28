@@ -1,8 +1,13 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-
-import hooks from 'usehooks-ts';
+import { useReadLocalStorage } from 'usehooks-ts';
 import Result from './Result';
+
+vi.mock('usehooks-ts', () => ({
+  useReadLocalStorage: vi.fn(),
+}));
+
+afterEach(() => vi.clearAllMocks());
 
 const result = [[1], [2], [3]];
 
@@ -28,7 +33,7 @@ describe('Result', () => {
   });
 
   it('renders with manual content', () => {
-    vi.spyOn(hooks, 'useReadLocalStorage').mockImplementation(() => true);
+    useReadLocalStorage.mockReturnValue(true);
     render(<Result result={ result } />);
 
     expect(screen.queryByRole('heading', { name: 'Your number is' })).toBeNull();
@@ -40,7 +45,7 @@ describe('Result', () => {
   });
 
   it('renders with non-manual content', () => {
-    vi.spyOn(hooks, 'useReadLocalStorage').mockImplementation(() => false);
+    useReadLocalStorage.mockReturnValue(false);
     render(<Result result={ result } />);
 
     expect(screen.getByRole('heading', { name: 'Your number is' })).toBeInTheDocument();

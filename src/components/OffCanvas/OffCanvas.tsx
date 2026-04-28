@@ -1,6 +1,6 @@
 import { faXmarkLarge } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, type RefObject } from 'react';
 import { Transition, TransitionStatus } from 'react-transition-group';
 import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 import { version } from '../../../package.json';
@@ -31,8 +31,10 @@ interface IOffCanvasProps {
 }
 
 function OffCanvas({ open, close }: IOffCanvasProps) {
-  const nodeRef = useRef(null);
-  useOnClickOutside(nodeRef, close);
+  const nodeRef = useRef<HTMLDivElement>(null);
+  // React 19 changed RefObject<T> to { current: T }, making null explicit in the type
+  // parameter. usehooks-ts v3 hasn't updated its signature yet, so we cast here.
+  useOnClickOutside(nodeRef as RefObject<HTMLElement>, close);
 
   const [isManual, setIsManual] = useLocalStorage('manual', false);
 
