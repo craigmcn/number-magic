@@ -10,14 +10,18 @@ vi.mock('usehooks-ts', () => ({
 afterEach(() => vi.clearAllMocks());
 
 const result = [[1], [2], [3]];
+const handleAgain = vi.fn();
 
 describe('Result', () => {
   it('does not render without a result array', () => {
-    expect(() => render(<Result />)).toThrow('Cannot read properties of undefined (reading \'reduce\')');
+    // @ts-expect-error intentionally testing missing required prop
+    expect(() => render(<Result handleAgain={handleAgain} />)).toThrow(
+      "Cannot read properties of undefined (reading 'reduce')",
+    );
   });
 
   it('renders with no cards selected', () => {
-    render(<Result result={ [] } />);
+    render(<Result result={[]} handleAgain={handleAgain} />);
 
     expect(screen.getByRole('heading', { name: 'Your number is' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '64' })).toBeInTheDocument(); // default
@@ -25,7 +29,7 @@ describe('Result', () => {
   });
 
   it('renders with content', () => {
-    render(<Result result={ result } />);
+    render(<Result result={result} handleAgain={handleAgain} />);
 
     expect(screen.getByRole('heading', { name: 'Your number is' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '6' })).toBeInTheDocument(); // total of `result`
@@ -33,8 +37,8 @@ describe('Result', () => {
   });
 
   it('renders with manual content', () => {
-    useReadLocalStorage.mockReturnValue(true);
-    render(<Result result={ result } />);
+    vi.mocked(useReadLocalStorage).mockReturnValue(true);
+    render(<Result result={result} handleAgain={handleAgain} />);
 
     expect(screen.queryByRole('heading', { name: 'Your number is' })).toBeNull();
     expect(screen.queryByRole('heading', { name: '6' })).toBeNull();
@@ -45,8 +49,8 @@ describe('Result', () => {
   });
 
   it('renders with non-manual content', () => {
-    useReadLocalStorage.mockReturnValue(false);
-    render(<Result result={ result } />);
+    vi.mocked(useReadLocalStorage).mockReturnValue(false);
+    render(<Result result={result} handleAgain={handleAgain} />);
 
     expect(screen.getByRole('heading', { name: 'Your number is' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '6' })).toBeInTheDocument(); // total of `result`

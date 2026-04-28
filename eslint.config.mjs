@@ -1,6 +1,4 @@
 import js from '@eslint/js';
-
-const ignores = ['**/vite-env.d.ts'];
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import reactPlugin from 'eslint-plugin-react';
@@ -10,7 +8,7 @@ import globals from 'globals';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
-  { ignores },
+  { ignores: ['**/vite-env.d.ts'] },
   js.configs.recommended,
   {
     files: ['**/*.{ts,tsx}'],
@@ -58,7 +56,7 @@ export default [
     },
   },
   {
-    files: ['**/*.test.{ts,tsx}', 'tests/**/*.{ts,tsx}'],
+    files: ['**/*.test.{ts,tsx,js,jsx}', 'tests/**/*.{ts,tsx,js,jsx}'],
     plugins: {
       'testing-library': testingLibrary,
     },
