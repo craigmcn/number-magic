@@ -8,13 +8,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 yarn dev          # Start dev server at http://localhost:3100
 yarn build        # Type-check (tsc) then build to dist/
 yarn preview      # Preview the production build locally
-yarn lint         # ESLint with auto-fix on src/
+yarn lint         # ESLint check on src/ (no auto-fix — fails on any error)
+yarn lint:fix     # ESLint with auto-fix on src/
 yarn format       # Prettier on src/ and index.html
 ```
 
 **Tests:** Vitest + Testing Library. Run `yarn test` (watch), `yarn test:run` (single pass), or `yarn coverage` (coverage report).
 
 Tests are co-located with components (`src/components/**/*.test.tsx`) and utilities (`src/lib/index.test.ts`). Test environment setup lives in `tests/setup.ts`.
+
+## Follow-up items
+
+These are known issues that are non-blocking but should be addressed in a future PR:
+
+- **Sass deprecation warnings** — `src/styles/index.scss` uses `@import` (deprecated in Dart Sass 3) and `src/styles/_variables.scss` uses `darken()`/`desaturate()` (deprecated color functions). Migrate to `@use`/`@forward` and `color.adjust()`.
+- **`Result.test.tsx` click coverage** — the "Play again" button is rendered in all tests but `handleAgain` is never asserted to have been called. Add a `userEvent.click` test for the button.
 
 ## Architecture
 
