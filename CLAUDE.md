@@ -17,6 +17,23 @@ yarn format       # Prettier on src/ and index.html
 
 Tests are co-located with components (`src/components/**/*.test.tsx`) and utilities (`src/lib/index.test.ts`). Test environment setup lives in `tests/setup.ts`.
 
+## Status
+
+**Modernization: complete.** The repo matches the standard baseline (Node 24, Yarn 4, Vite 8, TypeScript 5, ESLint 9 flat config, Vitest + Testing Library, `test.yml` CI, CLAUDE.md, branch protection).
+
+**PR #12 open** (`followup-items` branch) — pending merge:
+- `.github/CODEOWNERS` added (`* @craigmcn`)
+- Sass `@import` → `@use 'variables' as *`; deprecated `darken()`/`desaturate()`/`lighten()` replaced with `color.adjust()` from `sass:color`
+- `userEvent.click` test added for the "Play again" button in `Result.test.tsx`
+- README rewritten with end-user usage and developer sections
+
+**Branch protection** (done outside PR, 2026-05-01):
+- Required approvals: 0 → 1
+- Owner bypass: `enforce_admins: false` (Craig can merge without a review)
+- Dismiss stale reviews, require `test` status check, block force push + deletion
+
+**Next:** Merge PR #12. No known outstanding items after that.
+
 ## Architecture
 
 This is a single-page React 19 + TypeScript app built with Vite 8. It implements a classic "number magic" card trick: the user picks a number 1–63 in their head; the app shows six cards and asks "is your number on this card?"; the sum of the first element of each "yes" card reveals the chosen number (binary representation).
