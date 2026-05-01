@@ -17,12 +17,22 @@ yarn format       # Prettier on src/ and index.html
 
 Tests are co-located with components (`src/components/**/*.test.tsx`) and utilities (`src/lib/index.test.ts`). Test environment setup lives in `tests/setup.ts`.
 
-## Follow-up items
+## Status
 
-These are known issues that are non-blocking but should be addressed in a future PR:
+**Modernization: complete.** The repo matches the standard baseline (Node 24, Yarn 4, Vite 8, TypeScript 5, ESLint 9 flat config, Vitest + Testing Library, `test.yml` CI, CLAUDE.md, branch protection).
 
-- **Sass deprecation warnings** — `src/styles/index.scss` uses `@import` (deprecated in Dart Sass 3) and `src/styles/_variables.scss` uses `darken()`/`desaturate()` (deprecated color functions). Migrate to `@use`/`@forward` and `color.adjust()`.
-- **`Result.test.tsx` click coverage** — the "Play again" button is rendered in all tests but `handleAgain` is never asserted to have been called. Add a `userEvent.click` test for the button.
+**PR #12 open** (`followup-items` branch) — pending merge:
+- `.github/CODEOWNERS` added (`* @craigmcn`)
+- Sass `@import` → `@use 'variables' as *`; deprecated `darken()`/`desaturate()`/`lighten()` replaced with `color.adjust()` from `sass:color`
+- `userEvent.click` test added for the "Play again" button in `Result.test.tsx`
+- README rewritten with end-user usage and developer sections
+
+**Branch protection** (done outside PR, 2026-05-01):
+- Required approvals: 0 → 1
+- Owner bypass: `enforce_admins: false` (Craig can merge without a review)
+- Dismiss stale reviews, require `test` status check, block force push + deletion
+
+**Next:** Merge PR #12. No known outstanding items after that.
 
 ## Architecture
 

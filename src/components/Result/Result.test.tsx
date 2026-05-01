@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useReadLocalStorage } from 'usehooks-ts';
 import Result from './Result';
 
@@ -55,5 +56,14 @@ describe('Result', () => {
     expect(screen.getByRole('heading', { name: 'Your number is' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '6' })).toBeInTheDocument(); // total of `result`
     expect(screen.getByRole('button', { name: 'Play again' })).toBeInTheDocument();
+  });
+
+  it('calls handleAgain when Play again is clicked', async () => {
+    const user = userEvent.setup();
+    render(<Result result={result} handleAgain={handleAgain} />);
+
+    await user.click(screen.getByRole('button', { name: 'Play again' }));
+
+    expect(handleAgain).toHaveBeenCalledOnce();
   });
 });
