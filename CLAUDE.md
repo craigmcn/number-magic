@@ -17,13 +17,6 @@ yarn format       # Prettier on src/ and index.html
 
 Tests are co-located with components (`src/components/**/*.test.tsx`) and utilities (`src/lib/index.test.ts`). Test environment setup lives in `tests/setup.ts`.
 
-## Follow-up items
-
-These are known issues that are non-blocking but should be addressed in a future PR:
-
-- **Sass deprecation warnings** — `src/styles/index.scss` uses `@import` (deprecated in Dart Sass 3) and `src/styles/_variables.scss` uses `darken()`/`desaturate()` (deprecated color functions). Migrate to `@use`/`@forward` and `color.adjust()`.
-- **`Result.test.tsx` click coverage** — the "Play again" button is rendered in all tests but `handleAgain` is never asserted to have been called. Add a `userEvent.click` test for the button.
-
 ## Architecture
 
 This is a single-page React 19 + TypeScript app built with Vite 8. It implements a classic "number magic" card trick: the user picks a number 1–63 in their head; the app shows six cards and asks "is your number on this card?"; the sum of the first element of each "yes" card reveals the chosen number (binary representation).
