@@ -15,6 +15,7 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -26,7 +27,8 @@ dist-ssr
 *.tsbuildinfo
 
 # Yarn
-.yarn/unplugged
-.yarn/build-state.yml
-.pnp.cjs
-.pnp.loader.mjs
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/versions

@@ -1,5 +1,5 @@
-import React, { useId } from 'react';
-import css from './switch.module.scss';
+import React, { useId } from "react";
+import css from "./switch.module.scss";
 
 interface ISwitchProps {
   id?: string;
@@ -14,11 +14,17 @@ function Switch({ id, name, children, checked, onChange }: ISwitchProps) {
   const inputId = id || hookId;
 
   return (
-    <span className={ css.switch }>
+    <span className={css.switch}>
       <label>
-        <input id={ inputId } name={ name || inputId } type="checkbox" defaultChecked={ checked } onChange={ onChange } />
-        <span className={ css.slider }></span>
-        { children }
+        <input
+          id={inputId}
+          name={name || inputId}
+          type="checkbox"
+          defaultChecked={checked}
+          onChange={onChange}
+        />
+        <span className={css.slider}></span>
+        {children}
       </label>
     </span>
   );

@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/pro-light-svg-icons";
 
 interface IStartProps {
   handleStart: () => void;
@@ -14,9 +14,9 @@ function Start({ handleStart }: IStartProps) {
         between 1 and 64
       </h1>
 
-      <button className="large" onClick={ handleStart }>
+      <button className="large" onClick={handleStart}>
         Got it!
-        <FontAwesomeIcon icon={ faThumbsUp } fixedWidth className="ml-2" />
+        <FontAwesomeIcon icon={faThumbsUp} fixedWidth className="ml-2" />
       </button>
     </>
   );
