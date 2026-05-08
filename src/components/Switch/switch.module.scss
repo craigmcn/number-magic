@@ -30,8 +30,8 @@
   @extend .switch-input;
   cursor: pointer;
   background-color: var(--color-muted);
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   border-radius: 1em;
 
   &:before {
@@ -42,15 +42,14 @@
     left: 2px;
     bottom: 2px;
     background-color: var(--bg-color-default);
-    -webkit-transition: .3s;
-    transition: .3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
     border-radius: 50%;
   }
 }
 
 input:checked + .slider {
   background-color: var(--color-primary);
-
 }
 
 input:focus + .slider {

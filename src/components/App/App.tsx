@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faCircleXmark } from '@fortawesome/pro-light-svg-icons';
-import { DURATION, NUMBERS, sliceRandomElement } from '../../lib';
-import Header from '../Header';
-import Start from '../Start';
-import ErrorBoundary from '../ErrorBoundary';
-import NumberCard from '../NumberCard';
-import Result from '../Result';
-import css from './App.module.scss';
+import { useCallback, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck, faCircleXmark } from "@fortawesome/pro-light-svg-icons";
+import { DURATION, NUMBERS, sliceRandomElement } from "../../lib";
+import Header from "../Header";
+import Start from "../Start";
+import ErrorBoundary from "../ErrorBoundary";
+import NumberCard from "../NumberCard";
+import Result from "../Result";
+import css from "./App.module.scss";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,11 +28,18 @@ function App() {
     setNumberArray(array);
   }, [numberArray]);
 
-  const slowNextCard = useCallback((slow = true) => {
-    setTimeout(() => { // match with transition duration
-      getNextCard();
-    }, slow ? DURATION : 100);
-  }, [getNextCard]);
+  const slowNextCard = useCallback(
+    (slow = true) => {
+      setTimeout(
+        () => {
+          // match with transition duration
+          getNextCard();
+        },
+        slow ? DURATION : 100,
+      );
+    },
+    [getNextCard],
+  );
 
   const handleStart = useCallback(() => {
     setStarted(true);
@@ -40,7 +47,7 @@ function App() {
 
   const handleYes = useCallback(() => {
     setLoading(true);
-    setMagic(magic => [...magic, current]);
+    setMagic((magic) => [...magic, current]);
     slowNextCard(numberArray.length > 0);
   }, [numberArray.length, current, setLoading, setMagic, slowNextCard]);
 
@@ -73,37 +80,50 @@ function App() {
     <>
       <Header />
 
-      <main className={ css.container }>
-        { !started && <Start handleStart={ handleStart } /> }
+      <main className={css.container}>
+        {!started && <Start handleStart={handleStart} />}
 
-        { (started && current) && (
+        {started && current && (
           <>
             <ErrorBoundary>
-              <NumberCard
-                loading={ loading }
-                numbers={ current }
-              />
+              <NumberCard loading={loading} numbers={current} />
             </ErrorBoundary>
 
             <p className="mt-6">
-              <button className="large success mr-4" onClick={ handleYes } disabled={ loading }>
-                <FontAwesomeIcon icon={ faCircleCheck } fixedWidth className="text-success mr-2" />
+              <button
+                className="large success mr-4"
+                onClick={handleYes}
+                disabled={loading}
+              >
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  fixedWidth
+                  className="text-success mr-2"
+                />
                 Yes!
               </button>
 
-              <button className="large danger" onClick={ handleNo } disabled={ loading }>
-                <FontAwesomeIcon icon={ faCircleXmark } fixedWidth className="text-danger mr-2" />
+              <button
+                className="large danger"
+                onClick={handleNo}
+                disabled={loading}
+              >
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  fixedWidth
+                  className="text-danger mr-2"
+                />
                 No
               </button>
             </p>
           </>
-        ) }
+        )}
 
-        { (started && !current) && (
+        {started && !current && (
           <ErrorBoundary>
-            <Result result={ magic } handleAgain={ handleAgain } />
+            <Result result={magic} handleAgain={handleAgain} />
           </ErrorBoundary>
-        ) }
+        )}
       </main>
     </>
   );

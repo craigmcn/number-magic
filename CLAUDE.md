@@ -21,29 +21,33 @@ Tests are co-located with components (`src/components/**/*.test.tsx`) and utilit
 
 **Modernization: complete.** The repo matches the standard baseline (Node 24, Yarn 4, Vite 8, TypeScript 5, ESLint 9 flat config, Vitest + Testing Library, `test.yml` CI, CLAUDE.md, branch protection).
 
-**PR #12 open** (`followup-items` branch) — pending merge:
+**PR #12 merged** (2026-05-01) — follow-up items:
+
 - `.github/CODEOWNERS` added (`* @craigmcn`)
 - Sass `@import` → `@use 'variables' as *`; deprecated `darken()`/`desaturate()`/`lighten()` replaced with `color.adjust()` from `sass:color`
 - `userEvent.click` test added for the "Play again" button in `Result.test.tsx`
 - README rewritten with end-user usage and developer sections
 
-**Branch protection** (done outside PR, 2026-05-01):
+**Branch protection** (2026-05-01):
+
 - Required approvals: 0 → 1
 - Owner bypass: `enforce_admins: false` (Craig can merge without a review)
 - Dismiss stale reviews, require `test` status check, block force push + deletion
 
-**Next:** Merge PR #12. No known outstanding items after that.
+**No outstanding items.**
 
 ## Architecture
 
 This is a single-page React 19 + TypeScript app built with Vite 8. It implements a classic "number magic" card trick: the user picks a number 1–63 in their head; the app shows six cards and asks "is your number on this card?"; the sum of the first element of each "yes" card reveals the chosen number (binary representation).
 
 **Core logic — `src/lib/index.ts`:**
+
 - `NUMBERS`: Six arrays, each representing numbers with a specific bit set (bit 0 through bit 5).
 - `sliceRandomElement<T>`: Picks a random element from an array and returns both the element and the remaining array. Used to randomise card presentation order.
 - `DURATION`: CSS transition duration constant (450ms), shared between `App` and `ResultGrid`.
 
 **Data flow:**
+
 1. `Start` prompts the user to begin.
 2. `App` orchestrates state: `current` (card being shown), `numberArray` (remaining cards), `magic` (first element of each "yes" card).
 3. `NumberCard` displays the current card and accepts yes/no input.
@@ -51,6 +55,7 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 5. `ResultGrid` shows all six cards with the result highlighted.
 
 **Component tree:**
+
 - `Header` — nav bar with settings toggle.
 - `OffCanvas` — settings panel (manual/magic mode toggle, version display). Uses `react-transition-group` for animation and `usehooks-ts` `useOnClickOutside` to dismiss.
 - `ErrorBoundary` — wraps the app; `ErrorHandler` renders the fallback UI.
@@ -60,6 +65,7 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 **Styling:** Sass (SCSS modules per component + `src/styles/` for global variables and base styles). AlbertCSS served via CDN in `index.html`.
 
 **ESLint + Prettier conventions to follow:**
+
 - Config: `eslint.config.mjs` (ESLint 9 flat config). No `.eslintrc`.
 - Formatting is handled by Prettier (`.prettierrc`): single quotes, semi-colons, 2-space indent. Run `yarn format` to apply.
 - ESLint handles code quality only — recommended rules from `@typescript-eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, and `eslint-plugin-testing-library` (test files only), plus:

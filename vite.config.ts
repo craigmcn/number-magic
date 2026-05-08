@@ -1,14 +1,14 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: "./",
   build: {
     rollupOptions: {
       output: [
-        { dir: 'dist' },
-        { dir: 'dist/number-magic' }, // For Netlify subdirectory
+        { dir: "dist" },
+        { dir: "dist/number-magic" }, // For Netlify subdirectory
       ],
     },
   },

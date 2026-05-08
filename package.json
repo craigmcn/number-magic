@@ -9,10 +9,12 @@
     "preview": "vite preview",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
-    "format": "prettier --write src index.html",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "vitest",
     "test:run": "vitest run",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -43,6 +45,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-testing-library": "^7.5.0",
     "globals": "^17.5.0",
+    "husky": "^9.1.7",
     "jsdom": "^26.0.0",
     "prettier": "^3.8.3",
     "sass": "^1.86.0",
@@ -50,5 +53,5 @@
     "vite": "^8.0.10",
     "vitest": "^4.1.5"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.14.1"
 }

@@ -14,23 +14,26 @@ jobs:
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
+          node-version-file: .nvmrc
 
-      - name: Install dependencies
-        run: yarn install --immutable
+      - run: corepack enable
 
-      - name: Lint
-        run: yarn lint
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: yarn.lock
 
-      - name: Build
-        run: yarn build
+      - run: yarn install --immutable
 
-      - name: Test
-        run: yarn coverage
+      - run: yarn format:check
+
+      - run: yarn lint
+
+      - run: yarn build
+
+      - run: yarn coverage

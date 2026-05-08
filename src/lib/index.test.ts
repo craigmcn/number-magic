@@ -1,15 +1,17 @@
-import { describe, expect, it } from 'vitest';
-import { sliceRandomElement } from '.';
+import { describe, expect, it } from "vitest";
+import { sliceRandomElement } from ".";
 
 const testArray = [1, 2, 3, 4, 5];
 
-describe('sliceRandomElement', () => {
-  it('slices an element from the array', () => {
+describe("sliceRandomElement", () => {
+  it("slices an element from the array", () => {
     const newArray = sliceRandomElement(testArray);
 
     expect(newArray.array.length).toBe(testArray.length - 1);
     expect(testArray.includes(newArray.element)).toBe(true);
     expect(newArray.array.includes(newArray.element)).toBe(false);
-    expect([newArray.element, ...newArray.array].sort()).toStrictEqual(testArray.sort());
+    expect([newArray.element, ...newArray.array].sort()).toStrictEqual(
+      testArray.sort(),
+    );
   });
 });

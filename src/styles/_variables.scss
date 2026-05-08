@@ -1,4 +1,4 @@
-@use 'sass:color';
+@use "sass:color";
 
 $spacing: 1rem;
 
@@ -9,11 +9,19 @@ $primary-light-active: color.adjust($primary-light, $lightness: -12%);
 $danger: #f49090;
 $danger-inactive: color.adjust($danger, $saturation: -40%, $lightness: -35%);
 $danger-light: #b60202;
-$danger-light-inactive: color.adjust($danger-light, $saturation: -60%, $lightness: 40%);
+$danger-light-inactive: color.adjust(
+  $danger-light,
+  $saturation: -60%,
+  $lightness: 40%
+);
 $success: #09c809;
 $success-inactive: color.adjust($success, $saturation: -20%, $lightness: -20%);
 $success-light: #036803;
-$success-light-inactive: color.adjust($success-light, $saturation: -60%, $lightness: 40%);
+$success-light-inactive: color.adjust(
+  $success-light,
+  $saturation: -60%,
+  $lightness: 40%
+);
 $black-0: #808080;
 $black-50: #7e7e7e;
 $black-100: #777;
