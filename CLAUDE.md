@@ -5,12 +5,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-yarn dev          # Start dev server at http://localhost:3100
-yarn build        # Type-check (tsc) then build to dist/
-yarn preview      # Preview the production build locally
-yarn lint         # ESLint check on src/ (no auto-fix — fails on any error)
-yarn lint:fix     # ESLint with auto-fix on src/
-yarn format       # Prettier on src/ and index.html
+yarn dev              # Start dev server at http://localhost:3100
+yarn build            # Type-check (tsc) then build to dist/
+yarn build:netlify    # Build to netlify/ (root) and netlify/number-magic/ (GitHub Pages)
+yarn preview          # Preview the production build locally
+yarn lint             # ESLint check on src/ (no auto-fix — fails on any error)
+yarn lint:fix         # ESLint with auto-fix on src/
+yarn format           # Prettier on src/ and index.html
 ```
 
 **Tests:** Vitest + Testing Library. Run `yarn test` (watch), `yarn test:run` (single pass), or `yarn coverage` (coverage report).
@@ -34,7 +35,7 @@ Tests are co-located with components (`src/components/**/*.test.tsx`) and utilit
 - Owner bypass: `enforce_admins: false` (Craig can merge without a review)
 - Dismiss stale reviews, require `test` status check, block force push + deletion
 
-**No outstanding items.**
+Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, axe tooling, Playwright E2E).
 
 ## Architecture
 
