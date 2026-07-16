@@ -35,7 +35,9 @@ Tests are co-located with components (`src/components/**/*.test.tsx`) and utilit
 - Owner bypass: `enforce_admins: false` (Craig can merge without a review)
 - Dismiss stale reviews, require `test` status check, block force push + deletion
 
-Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, axe tooling, Playwright E2E).
+Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (axe tooling, Playwright E2E).
+
+**GitHub Actions bump** (2026-07-16): `actions/checkout` and `actions/setup-node` bumped from v4 to v7 in `.github/workflows/test.yml`.
 
 ## Architecture
 
