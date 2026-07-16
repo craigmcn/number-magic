@@ -9,14 +9,17 @@ yarn dev              # Start dev server at http://localhost:3100
 yarn build            # Type-check (tsc) then build to dist/
 yarn build:netlify    # Build to netlify/ (root) and netlify/number-magic/ (GitHub Pages)
 yarn preview          # Preview the production build locally
-yarn lint             # ESLint check on src/ (no auto-fix — fails on any error)
-yarn lint:fix         # ESLint with auto-fix on src/
+yarn lint             # ESLint check on src/, e2e/, and playwright.config.ts (no auto-fix — fails on any error)
+yarn lint:fix         # ESLint with auto-fix on src/, e2e/, and playwright.config.ts
 yarn format           # Prettier on src/ and index.html
+yarn test:e2e         # Playwright E2E tests (starts its own dev server)
 ```
 
 **Tests:** Vitest + Testing Library. Run `yarn test` (watch), `yarn test:run` (single pass), or `yarn coverage` (coverage report).
 
 Tests are co-located with components (`src/components/**/*.test.tsx`) and utilities (`src/lib/index.test.ts`). Test environment setup lives in `tests/setup.ts`.
+
+**E2E:** Playwright (`playwright.config.ts`), tests in `e2e/*.spec.ts`, excluded from Vitest's glob via `vitest.config.ts`'s `exclude`. Runs only in CI (`test.yml`), not pre-commit — browser install + startup is too slow for a hook.
 
 ## Status
 
@@ -35,7 +38,9 @@ Tests are co-located with components (`src/components/**/*.test.tsx`) and utilit
 - Owner bypass: `enforce_admins: false` (Craig can merge without a review)
 - Dismiss stale reviews, require `test` status check, block force push + deletion
 
-Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, axe tooling, Playwright E2E).
+Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, axe tooling).
+
+**Playwright E2E** (2026-07-16): `@playwright/test` added; `e2e/number-magic.spec.ts` drives the real app end to end (all-yes and all-no paths), run against `yarn dev` via `webServer` in `playwright.config.ts`. CI caches the Chromium install and runs `yarn test:e2e` after unit tests/build.
 
 ## Architecture
 

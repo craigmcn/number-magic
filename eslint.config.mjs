@@ -67,5 +67,11 @@ export default [
       ...testingLibrary.configs["flat/react"].rules,
     },
   },
+  {
+    files: ["playwright.config.ts", "e2e/**/*.ts"],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
   eslintConfigPrettier,
 ];
