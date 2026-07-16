@@ -38,7 +38,11 @@ Tests are co-located with components (`src/components/**/*.test.tsx`) and utilit
 - Owner bypass: `enforce_admins: false` (Craig can merge without a review)
 - Dismiss stale reviews, require `test` status check, block force push + deletion
 
-Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, axe tooling).
+Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8).
+
+**GitHub Actions bump** (2026-07-16): `actions/checkout` and `actions/setup-node` bumped from v4 to v7 in `.github/workflows/test.yml`.
+
+**Accessibility tooling** (2026-07-16): `eslint-plugin-jsx-a11y` (flat config `recommended`) added to `eslint.config.mjs`; `vitest-axe` added with an axe smoke test in `App.test.tsx` and the `toHaveNoViolations` matcher registered in `tests/setup.ts`.
 
 **Playwright E2E** (2026-07-16): `@playwright/test` added; `e2e/number-magic.spec.ts` drives the real app end to end (all-yes and all-no paths), run against `yarn dev` via `webServer` in `playwright.config.ts`. CI caches the Chromium install and runs `yarn test:e2e` after unit tests/build.
 
@@ -74,7 +78,7 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 
 - Config: `eslint.config.mjs` (ESLint 9 flat config). No `.eslintrc`.
 - Formatting is handled by Prettier (`.prettierrc`): single quotes, semi-colons, 2-space indent. Run `yarn format` to apply.
-- ESLint handles code quality only — recommended rules from `@typescript-eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, and `eslint-plugin-testing-library` (test files only), plus:
+- ESLint handles code quality only — recommended rules from `@typescript-eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-testing-library` (test files only), plus:
   - Interfaces must be prefixed with `I` (e.g. `IOffCanvasProps`).
   - `react/jsx-no-bind` is enabled — don't pass inline arrow functions as JSX props; use `useCallback`.
   - `react/react-in-jsx-scope` is off — do not add `import React from 'react'` to new files.
