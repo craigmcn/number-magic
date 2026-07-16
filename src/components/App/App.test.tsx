@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 
 import App from "./App";
 
@@ -19,6 +20,11 @@ describe("App", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Got it!" })).toBeInTheDocument();
+  });
+
+  it("has no detectable accessibility violations", async () => {
+    const { container } = render(<App />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 
   it("starts correctly", async () => {

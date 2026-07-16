@@ -35,7 +35,9 @@ Tests are co-located with components (`src/components/**/*.test.tsx`) and utilit
 - Owner bypass: `enforce_admins: false` (Craig can merge without a review)
 - Dismiss stale reviews, require `test` status check, block force push + deletion
 
-Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, axe tooling, Playwright E2E).
+Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, Playwright E2E).
+
+**Accessibility tooling** (2026-07-16): `eslint-plugin-jsx-a11y` (flat config `recommended`) added to `eslint.config.mjs`; `vitest-axe` added with an axe smoke test in `App.test.tsx` and the `toHaveNoViolations` matcher registered in `tests/setup.ts`.
 
 ## Architecture
 
@@ -69,7 +71,7 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 
 - Config: `eslint.config.mjs` (ESLint 9 flat config). No `.eslintrc`.
 - Formatting is handled by Prettier (`.prettierrc`): single quotes, semi-colons, 2-space indent. Run `yarn format` to apply.
-- ESLint handles code quality only — recommended rules from `@typescript-eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, and `eslint-plugin-testing-library` (test files only), plus:
+- ESLint handles code quality only — recommended rules from `@typescript-eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, `eslint-plugin-jsx-a11y`, and `eslint-plugin-testing-library` (test files only), plus:
   - Interfaces must be prefixed with `I` (e.g. `IOffCanvasProps`).
   - `react/jsx-no-bind` is enabled — don't pass inline arrow functions as JSX props; use `useCallback`.
   - `react/react-in-jsx-scope` is off — do not add `import React from 'react'` to new files.
