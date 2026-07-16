@@ -35,9 +35,11 @@ Tests are co-located with components (`src/components/**/*.test.tsx`) and utilit
 - Owner bypass: `enforce_admins: false` (Craig can merge without a review)
 - Dismiss stale reviews, require `test` status check, block force push + deletion
 
-Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8) (GitHub Actions bump, Playwright E2E).
+Open TODOs tracked as issues in the [number-magic GitHub Project](https://github.com/users/craigmcn/projects/8).
 
 **Accessibility tooling** (2026-07-16): `eslint-plugin-jsx-a11y` (flat config `recommended`) added to `eslint.config.mjs`; `vitest-axe` added with an axe smoke test in `App.test.tsx` and the `toHaveNoViolations` matcher registered in `tests/setup.ts`.
+
+**GitHub Actions bump** (2026-07-16): `actions/checkout` and `actions/setup-node` bumped from v4 to v7 in `.github/workflows/test.yml`.
 
 ## Architecture
 
