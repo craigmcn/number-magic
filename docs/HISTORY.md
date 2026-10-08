@@ -72,3 +72,11 @@ A full-codebase review produced issues #25–#34. The first batch:
 - **#33:** three tests used `/[/w]/` (a typo that matched only `/` or `w`); they now check for digits. The
   test asserting V8's `TypeError` text is gone. `NUMBERS` is generated from bit arithmetic (identical to the
   old 192-number table) and tested on the property the trick relies on. Dead `packages/template` exclude removed.
+
+## Favicons (2026-10-08)
+
+- **#31:** the repo had no `public/` folder, so its root-absolute icon links borrowed craigmcn.com's icons
+  and 404'd on the Netlify deploys. The icons are now in `public/` (copied from craigmcn.com), with a
+  manifest of our own (named, `#005b99` theme, relative icon paths). The `favicon-194x194.png` link was
+  dropped: it 404s on craigmcn.com too. Checked against a served `yarn build:netlify` at `/` and
+  `/number-magic/`: every icon link and manifest icon returns 200.
