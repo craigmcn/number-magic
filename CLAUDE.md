@@ -65,7 +65,9 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 
 **Icons and manifest:** the favicons, `site.webmanifest` (relative icon paths) and Safari mask icon live in `public/`, copied from craigmcn.com. `index.html` links them root-absolute (`/favicon.ico`); with `base: "./"` Vite rewrites those to `./favicon.ico`, so they resolve at the Netlify root, the `/number-magic/` subfolder and craigmcn.com/number-magic/.
 
-**Styling:** Sass (SCSS modules per component + `src/styles/` for global variables and base styles). AlbertCSS served via CDN in `index.html`.
+**Styling:** Sass (SCSS modules per component + `src/styles/` for global variables, base styles and the utility classes such as `large`, `mt-6`, `visually-hidden`). No AlbertCSS or other external stylesheet is loaded. Font Awesome's CSS is bundled (`config.autoAddCss = false` plus `@fortawesome/fontawesome-svg-core/styles.css` in `src/index.tsx`) rather than injected at runtime.
+
+**Security headers — `netlify.toml`:** CSP (`'self'` everywhere, plus the inline trailing-slash script in `index.html` allowed by SHA-256 hash), `nosniff`, `Referrer-Policy`, `Permissions-Policy`. Netlify only; craigmcn.com/number-magic/ proxies the app and passes these through. Editing that inline script means updating the hash: `src/securityHeaders.test.ts` fails if they drift. Anything that adds a cross-origin load or a runtime-injected `<style>`/`<script>` needs a CSP change. The dev server and the Playwright suite don't apply these headers, so check a served `yarn build:netlify` with them (see `docs/HISTORY.md`).
 
 **ESLint + Prettier conventions to follow:**
 

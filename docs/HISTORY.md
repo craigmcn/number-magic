@@ -80,3 +80,17 @@ A full-codebase review produced issues #25–#34. The first batch:
   manifest of our own (named, `#005b99` theme, relative icon paths). The `favicon-194x194.png` link was
   dropped: it 404s on craigmcn.com too. Checked against a served `yarn build:netlify` at `/` and
   `/number-magic/`: every icon link and manifest icon returns 200.
+
+## Security headers (2026-10-08)
+
+- **#23:** `netlify.toml` sets a `'self'`-only CSP (the inline trailing-slash script allowed by hash, as in
+  fivefold and queen-bee), plus `nosniff`, `Referrer-Policy` and `Permissions-Policy`. No `[build]` section,
+  so Netlify's existing build settings are untouched. Font Awesome's runtime `<style>` injection is turned off
+  and its CSS bundled instead.
+- CLAUDE.md and the README claimed AlbertCSS loads from a CDN; nothing loads it, and the utility classes
+  live in `src/styles/index.scss`.
+- **How it was verified:** served `yarn build:netlify` with `python3 -m http.server`, and used a scratch
+  Playwright test that adds the `netlify.toml` headers to every response via `page.route` and collects
+  `securitypolicyviolation` events and console errors. A full round at `/` and `/number-magic/` showed no
+  violations and normal-size icons. As a negative control, removing the script hash made the harness
+  report the blocked inline script.

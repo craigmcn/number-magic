@@ -16,7 +16,6 @@ The **Magic** switch in the menu (☰) is on by default and reveals your number.
 
 - [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) built with [Vite](https://vitejs.dev/)
 - [Font Awesome](https://fontawesome.com/) for icons
-- [AlbertCSS](https://albertcss.craigmcn.com/) for base styling
 - [Sass](https://sass-lang.com/) (SCSS modules) for component styles
 
 ## Development
