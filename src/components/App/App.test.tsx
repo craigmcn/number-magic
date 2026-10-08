@@ -27,6 +27,15 @@ describe("App", () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 
+  it("has no detectable accessibility violations with the menu open", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
   it("starts correctly", async () => {
     const user = userEvent.setup();
     render(<App />);
