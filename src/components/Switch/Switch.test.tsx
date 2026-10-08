@@ -5,53 +5,43 @@ import { describe, expect, it, vi } from "vitest";
 import Switch from "./Switch";
 
 describe("Switch", () => {
-  it("renders with content, label and checkbox accept click event", async () => {
-    const user = userEvent.setup();
-    const mockChange = vi.fn();
-    render(<Switch onChange={mockChange}>Test</Switch>);
-
-    const checkbox = screen.getByRole("checkbox");
-    expect(checkbox).toBeInTheDocument();
-    expect(checkbox).not.toBeChecked();
-
-    await user.click(checkbox);
-
-    expect(mockChange).toHaveBeenCalled();
-    expect(checkbox).toBeChecked();
-
-    const label = screen.getByLabelText("Test");
-    expect(label).toBeInTheDocument();
-
-    await user.click(label);
-
-    expect(mockChange).toHaveBeenCalled();
-    expect(checkbox).not.toBeChecked();
-  });
-
-  it("renders with content, label and checkbox (checked) accept click event", async () => {
+  it("renders unchecked and reports clicks on the checkbox and label", async () => {
     const user = userEvent.setup();
     const mockChange = vi.fn();
     render(
-      <Switch onChange={mockChange} checked={true}>
+      <Switch onChange={mockChange} checked={false}>
         Test
       </Switch>,
     );
 
-    const checkbox = screen.getByRole("checkbox");
-    expect(checkbox).toBeInTheDocument();
+    const checkbox = screen.getByRole("checkbox", { name: "Test" });
+    expect(checkbox).not.toBeChecked();
+
+    await user.click(checkbox);
+    await user.click(screen.getByLabelText("Test"));
+
+    expect(mockChange).toHaveBeenCalledTimes(2);
+  });
+
+  it("follows the checked prop rather than its own state", async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(
+      <Switch onChange={vi.fn()} checked={true}>
+        Test
+      </Switch>,
+    );
+
+    const checkbox = screen.getByRole("checkbox", { name: "Test" });
     expect(checkbox).toBeChecked();
 
     await user.click(checkbox);
-
-    expect(mockChange).toHaveBeenCalled();
-    expect(checkbox).not.toBeChecked();
-
-    const label = screen.getByLabelText("Test");
-    expect(label).toBeInTheDocument();
-
-    await user.click(label);
-
-    expect(mockChange).toHaveBeenCalled();
     expect(checkbox).toBeChecked();
+
+    rerender(
+      <Switch onChange={vi.fn()} checked={false}>
+        Test
+      </Switch>,
+    );
+    expect(checkbox).not.toBeChecked();
   });
 });

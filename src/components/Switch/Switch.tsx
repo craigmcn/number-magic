@@ -5,7 +5,7 @@ interface ISwitchProps {
   id?: string;
   name?: string;
   children: React.ReactNode;
-  checked?: boolean;
+  checked: boolean;
   onChange: () => void;
 }
 
@@ -20,7 +20,7 @@ function Switch({ id, name, children, checked, onChange }: ISwitchProps) {
           id={inputId}
           name={name || inputId}
           type="checkbox"
-          defaultChecked={checked}
+          checked={checked}
           onChange={onChange}
         />
         <span className={css.slider}></span>

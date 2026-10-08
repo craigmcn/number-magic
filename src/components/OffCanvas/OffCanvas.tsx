@@ -2,8 +2,9 @@ import { faXmarkLarge } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useRef, type RefObject } from "react";
 import { Transition, TransitionStatus } from "react-transition-group";
-import { useLocalStorage, useOnClickOutside } from "usehooks-ts";
+import { useOnClickOutside } from "usehooks-ts";
 import { version } from "../../../package.json";
+import { useMagicMode } from "../../hooks";
 import headerCss from "../Header/header.module.scss";
 import Logo from "../Logo";
 import logoCss from "../Logo/logo.module.scss";
@@ -36,11 +37,11 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
   // parameter. usehooks-ts v3 hasn't updated its signature yet, so we cast here.
   useOnClickOutside(nodeRef as RefObject<HTMLElement>, close);
 
-  const [isManual, setIsManual] = useLocalStorage("manual", false);
+  const [isMagic, setIsMagic] = useMagicMode();
 
-  const toggleManual = useCallback(() => {
-    setIsManual((prev) => !prev);
-  }, [setIsManual]);
+  const toggleMagic = useCallback(() => {
+    setIsMagic((prev) => !prev);
+  }, [setIsMagic]);
 
   return (
     <Transition nodeRef={nodeRef} in={open} timeout={duration}>
@@ -70,7 +71,7 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
           <h1 className="text-xl">Number Magic</h1>
 
           <p>
-            <Switch checked={isManual} onChange={toggleManual}>
+            <Switch checked={isMagic} onChange={toggleMagic}>
               Magic
             </Switch>
           </p>

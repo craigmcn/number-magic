@@ -8,7 +8,7 @@ A classic number magic card trick, in your browser.
 
 Think of a number between 1 and 63. The app shows you six cards and asks whether your number appears on each one. After all six cards, it reveals your number — the trick is pure binary arithmetic: each "yes" card contributes a power of 2, and their sum is your number.
 
-A **magic mode** toggle (via the settings panel ⚙) reveals the answer automatically; in **manual mode** you add up the "yes" cards yourself.
+The **Magic** switch in the menu (☰) is on by default and reveals your number. Switch it off and the app shows your "yes" cards instead, for you to add up yourself.
 
 ---
 
@@ -30,21 +30,20 @@ yarn lint:fix   # ESLint with auto-fix
 yarn format     # Prettier
 ```
 
-VS Code SDK integrations for ESLint and TypeScript are committed in `.yarn/sdks/` and configured in `.vscode/settings.json` — no extra setup needed.
-
 ## Testing
 
-Vitest + Testing Library. 25 tests across component and utility tests.
+Vitest + Testing Library for component, hook and utility tests; Playwright for end-to-end tests.
 
 ```bash
 yarn test        # watch mode
 yarn test:run    # single pass
 yarn coverage    # single pass with coverage report
+yarn test:e2e    # Playwright end-to-end tests
 ```
 
 ## Deployment
 
-Deployed on Netlify. The build outputs to two directories simultaneously:
+Deployed on Netlify. `yarn build:netlify` builds the same app into two directories:
 
-- `dist/` — root deployment
-- `dist/number-magic/` — subdirectory deployment at `/number-magic/` on the parent domain
+- `netlify/` — root deployment
+- `netlify/number-magic/` — subdirectory deployment, served at [craigmcn.com/number-magic](https://www.craigmcn.com/number-magic/)

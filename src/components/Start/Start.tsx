@@ -11,7 +11,7 @@ function Start({ handleStart }: IStartProps) {
       <h1>
         Think of a number
         <br />
-        between 1 and 64
+        between 1 and 63
       </h1>
 
       <button className="large" onClick={handleStart}>
