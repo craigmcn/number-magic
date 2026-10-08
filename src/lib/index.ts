@@ -1,3 +1,5 @@
+export * from "./game";
+
 export const DURATION = 450;
 
 export const NUMBERS = [
@@ -26,12 +28,3 @@ export const NUMBERS = [
     51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
   ],
 ];
-
-export const sliceRandomElement = <T>(array: T[]) => {
-  const randomIndex = ~~(Math.random() * array.length);
-  const randomElement = array[randomIndex];
-  return {
-    element: randomElement,
-    array: array.filter((_, i) => i !== randomIndex),
-  };
-};
