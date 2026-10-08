@@ -63,6 +63,8 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 - `Switch` — controlled toggle switch (`checked` is required). Its styled slider covers the checkbox, so e2e tests click the label.
 - `Logo` — SVG logo component.
 
+**Icons and manifest:** the favicons, `site.webmanifest` (relative icon paths) and Safari mask icon live in `public/`, copied from craigmcn.com. `index.html` links them root-absolute (`/favicon.ico`); with `base: "./"` Vite rewrites those to `./favicon.ico`, so they resolve at the Netlify root, the `/number-magic/` subfolder and craigmcn.com/number-magic/.
+
 **Styling:** Sass (SCSS modules per component + `src/styles/` for global variables and base styles). AlbertCSS served via CDN in `index.html`.
 
 **ESLint + Prettier conventions to follow:**
