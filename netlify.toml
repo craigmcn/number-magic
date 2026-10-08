@@ -1,0 +1,11 @@
+# Everything is same-origin (no CDNs, fonts or analytics), so 'self' covers scripts,
+# styles, icons and the manifest. script-src also allows index.html's inline
+# trailing-slash redirect by hash: it must run before relative URLs resolve, so it
+# can't be a file. src/securityHeaders.test.ts fails if the script and hash drift apart.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-FGALV05D4g7G4BENEzItcsKln/YAzSyPZhwTWZS+i2g='; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
