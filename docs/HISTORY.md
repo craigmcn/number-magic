@@ -62,3 +62,13 @@ A full-codebase review produced issues #25–#34. The first batch:
   closed, a non-modal dialog labelled "Menu", focuses its close button on open, and returns focus to the
   menu button on Escape or close. Covered by unit tests, an axe check with the menu open, and an e2e
   keyboard walk-through (jsdom doesn't implement `inert`, so only Chromium proves the tab order).
+
+## Type-check coverage and test hygiene (2026-10-08)
+
+- **#28:** `tsconfig.json` only covered `src` and `tests`, so `e2e/` and the config files were never
+  type-checked (`playwright.config.ts` didn't even compile without `@types/node`), and `tsconfig.node.json`
+  was an orphan. Now a solution `tsconfig.json` references app and node projects, `yarn build` runs
+  `tsc -b`, and `noUnusedLocals`/`noUnusedParameters` are on.
+- **#33:** three tests used `/[/w]/` (a typo that matched only `/` or `w`); they now check for digits. The
+  test asserting V8's `TypeError` text is gone. `NUMBERS` is generated from bit arithmetic (identical to the
+  old 192-number table) and tested on the property the trick relies on. Dead `packages/template` exclude removed.
