@@ -77,3 +77,27 @@ test("shows the cards instead of the number with Magic switched off", async ({
   // 63 is on every card, so the six "yes" cards each show it once.
   await expect(page.getByText("63", { exact: true })).toHaveCount(6);
 });
+
+test("keeps the closed menu out of the tab order and supports the keyboard", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const menuButton = page.getByRole("button", { name: "Open menu" });
+  const closeButton = page.getByRole("button", { name: "Close menu" });
+
+  // Tab through the whole closed page: focus must never land inside the menu.
+  for (let i = 0; i < 5; i += 1) {
+    await page.keyboard.press("Tab");
+    await expect(closeButton).not.toBeFocused();
+  }
+
+  await menuButton.focus();
+  await page.keyboard.press("Enter");
+  await expect(menuButton).toHaveAttribute("aria-expanded", "true");
+  await expect(closeButton).toBeFocused();
+
+  await page.keyboard.press("Escape");
+  await expect(menuButton).toHaveAttribute("aria-expanded", "false");
+  await expect(menuButton).toBeFocused();
+});

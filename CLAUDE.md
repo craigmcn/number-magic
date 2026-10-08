@@ -57,8 +57,8 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 
 **Component tree:**
 
-- `Header` — nav bar with settings toggle.
-- `OffCanvas` — settings panel (Magic switch, version display). Uses `react-transition-group` for animation and `usehooks-ts` `useOnClickOutside` to dismiss.
+- `Header` — nav bar with the menu button (`aria-expanded` / `aria-controls` point at the panel).
+- `OffCanvas` — settings panel (Magic switch, version display), a non-modal `role="dialog"` labelled "Menu". It stays mounted and slides off-screen, so it's `inert` while closed to keep it out of the tab order. Opening focuses the close button; Escape or the close button return focus to the menu button; an outside click (`usehooks-ts` `useOnClickOutside`) just closes it. Uses `react-transition-group` for animation.
 - `ErrorBoundary` — two instances only: one at the root (`index.tsx`) and one around the game area in `App`, whose `onReset` resets the game. `ErrorHandler` renders the message and a "Start over" button (`resetErrorBoundary`). No `onError`: React 19's `createRoot` already logs caught errors.
 - `Switch` — controlled toggle switch (`checked` is required). Its styled slider covers the checkbox, so e2e tests click the label.
 - `Logo` — SVG logo component.
