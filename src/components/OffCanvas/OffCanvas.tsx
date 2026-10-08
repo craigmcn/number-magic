@@ -1,6 +1,6 @@
 import { faXmarkLarge } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useRef, type RefObject } from "react";
+import { useCallback, useEffect, useRef, type RefObject } from "react";
 import { Transition, TransitionStatus } from "react-transition-group";
 import { useOnClickOutside } from "usehooks-ts";
 import { version } from "../../../package.json";
@@ -27,15 +27,38 @@ const transitionStyles: Record<TransitionStatus, object> = {
 };
 
 interface IOffCanvasProps {
+  id?: string;
   open: boolean;
   close: () => void;
+  returnFocusRef?: RefObject<HTMLElement | null>;
 }
 
-function OffCanvas({ open, close }: IOffCanvasProps) {
+function OffCanvas({ id, open, close, returnFocusRef }: IOffCanvasProps) {
   const nodeRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   // React 19 changed RefObject<T> to { current: T }, making null explicit in the type
   // parameter. usehooks-ts v3 hasn't updated its signature yet, so we cast here.
   useOnClickOutside(nodeRef as RefObject<HTMLElement>, close);
+
+  // Escape and the close button hand focus back to the menu button; an outside click
+  // doesn't, since the user has already put focus where they clicked.
+  const dismiss = useCallback(() => {
+    returnFocusRef?.current?.focus();
+    close();
+  }, [close, returnFocusRef]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") dismiss();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, dismiss]);
 
   const [isMagic, setIsMagic] = useMagicMode();
 
@@ -47,7 +70,11 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
     <Transition nodeRef={nodeRef} in={open} timeout={duration}>
       {(state) => (
         <div
+          id={id}
           ref={nodeRef}
+          inert={!open}
+          role="dialog"
+          aria-label="Menu"
           className={css.offCanvas}
           style={{
             ...defaultStyle,
@@ -55,7 +82,11 @@ function OffCanvas({ open, close }: IOffCanvasProps) {
           }}
         >
           <div className={css.header}>
-            <button className="condensed mr-2" onClick={close}>
+            <button
+              ref={closeButtonRef}
+              className="condensed mr-2"
+              onClick={dismiss}
+            >
               <FontAwesomeIcon icon={faXmarkLarge} fixedWidth />
               <span className="visually-hidden">Close menu</span>
             </button>
