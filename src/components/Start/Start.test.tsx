@@ -9,7 +9,7 @@ describe("Start", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: "Think of a number between 1 and 64",
+        name: "Think of a number between 1 and 63",
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Got it!" })).toBeInTheDocument();

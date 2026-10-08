@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo } from "@fortawesome/pro-light-svg-icons";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useMagicMode } from "../../hooks";
 import ErrorBoundary from "../ErrorBoundary";
 import ResultGrid from "../ResultGrid";
 
@@ -10,22 +10,30 @@ interface IResultProps {
 }
 
 function Result({ result, handleAgain }: IResultProps) {
-  const isManual = useReadLocalStorage("manual");
+  const [isMagic] = useMagicMode();
   const magic = result.reduce((r, c) => r + c[0], 0);
 
   return (
     <>
-      {isManual && (
+      {magic === 0 && (
+        <>
+          <h3>Your number wasn&rsquo;t on any card</h3>
+
+          <p>Was it between 1 and 63?</p>
+        </>
+      )}
+
+      {magic > 0 && !isMagic && (
         <ErrorBoundary>
           <ResultGrid result={result} />
         </ErrorBoundary>
       )}
 
-      {!isManual && (
+      {magic > 0 && isMagic && (
         <>
           <h3>Your number is</h3>
 
-          <h1>{magic || 64}</h1>
+          <h1>{magic}</h1>
         </>
       )}
 

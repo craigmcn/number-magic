@@ -16,7 +16,7 @@ describe("App", () => {
     expect(screen.getByRole("banner")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "Think of a number between 1 and 64",
+        name: "Think of a number between 1 and 63",
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Got it!" })).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe("App", () => {
     expect(screen.getByRole("banner")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "Think of a number between 1 and 64",
+        name: "Think of a number between 1 and 63",
       }),
     ).toBeInTheDocument();
 
@@ -58,7 +58,7 @@ describe("App", () => {
     expect(screen.getByRole("banner")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "Think of a number between 1 and 64",
+        name: "Think of a number between 1 and 63",
       }),
     ).toBeInTheDocument();
 
@@ -112,9 +112,34 @@ describe("App", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: "Think of a number between 1 and 64",
+        name: "Think of a number between 1 and 63",
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Got it!" })).toBeInTheDocument();
+  });
+  it("shows the cards instead of the number with Magic switched off", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    await user.click(screen.getByRole("checkbox", { name: "Magic" }));
+    await user.click(screen.getByRole("button", { name: "Close menu" }));
+
+    await user.click(screen.getByRole("button", { name: "Got it!" }));
+
+    const yesButton = screen.getByRole("button", { name: "Yes!" });
+    for (let i = 0; i < 6; i += 1) {
+      await waitFor(() => expect(yesButton).not.toBeDisabled());
+      await user.click(yesButton);
+    }
+
+    expect(
+      await screen.findByRole("button", { name: "Play again" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Your number is" }),
+    ).toBeNull();
+    // 63 is on every card, so the six "yes" cards each show it once.
+    expect(screen.getAllByText("63")).toHaveLength(6);
   });
 });
