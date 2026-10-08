@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 yarn dev              # Start dev server at http://localhost:3100
-yarn build            # Type-check (tsc) then build to dist/
+yarn build            # Type-check (tsc -b) then build to dist/
 yarn build:netlify    # Build to netlify/ (root) and netlify/number-magic/ (GitHub Pages)
 yarn preview          # Preview the production build locally
 yarn lint             # ESLint check on src/, e2e/, and playwright.config.ts (no auto-fix — fails on any error)
@@ -40,10 +40,10 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 
 **Core logic — `src/lib/` (all re-exported from `src/lib/index.ts`):**
 
-- `NUMBERS`: Six arrays, each representing numbers with a specific bit set (bit 0 through bit 5).
+- `NUMBERS`: six cards generated from bit arithmetic (card _k_ lists every number 1–`MAX_NUMBER` (63) with bit _k_ set). `index.test.ts` checks the property the trick depends on: for every number, the first elements of the cards it's on add up to it.
 - `DURATION`: CSS transition duration constant (450ms), shared between `App` and `NumberCard`.
 - `game.ts`: `gameReducer` + `GameState`, a discriminated union on `phase: 'start' | 'card' | 'transitioning' | 'result'`. `current`/`remaining` exist only in the card phases, so there is no "empty card" state. The reducer is pure: actions that don't fit the current phase return the same state. `shuffle` (random sort keys) orders the deck, which is passed in with the `start` action so randomness stays out of the reducer.
-- `tsconfig.json` enables `noUncheckedIndexedAccess`; the old design relied on an unchecked `array[0]` of an empty array to end the game.
+- **TypeScript projects:** `tsconfig.json` is a solution file referencing `tsconfig.app.json` (`src`, `tests`; DOM, `vite/client` types) and `tsconfig.node.json` (`vite.config.ts`, `vitest.config.ts`, `playwright.config.ts`, `e2e/`; `@types/node`). `tsc -b` (used by `yarn build` and the pre-commit hook) checks both. Both enable `noUncheckedIndexedAccess`, `noUnusedLocals` and `noUnusedParameters`; the old game logic relied on an unchecked `array[0]` of an empty array to end the game.
 
 **Data flow:**
 

@@ -9,7 +9,7 @@ export default mergeConfig(
       environment: "jsdom",
       // Node 25+ has its own localStorage global that shadows jsdom's and is undefined without a file.
       execArgv: ["--no-experimental-webstorage"],
-      exclude: [...configDefaults.exclude, "packages/template/*", "e2e/**"],
+      exclude: [...configDefaults.exclude, "e2e/**"],
       globals: true,
       setupFiles: "./tests/setup.ts",
     },

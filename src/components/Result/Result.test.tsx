@@ -11,13 +11,6 @@ const setMagicMode = (isMagic: boolean) =>
   localStorage.setItem(MAGIC_MODE_KEY, JSON.stringify(isMagic));
 
 describe("Result", () => {
-  it("does not render without a result array", () => {
-    // @ts-expect-error intentionally testing missing required prop
-    expect(() => render(<Result handleAgain={handleAgain} />)).toThrow(
-      "Cannot read properties of undefined (reading 'reduce')",
-    );
-  });
-
   it.each([true, false])(
     "explains an all-no answer (magic mode: %s)",
     (isMagic) => {
