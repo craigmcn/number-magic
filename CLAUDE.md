@@ -38,17 +38,18 @@ The repo matches the standard baseline (Node 24, Yarn 4, Vite 8, TypeScript 5, E
 
 This is a single-page React 19 + TypeScript app built with Vite 8. It implements a classic "number magic" card trick: the user picks a number 1–63 in their head; the app shows six cards and asks "is your number on this card?"; the sum of the first element of each "yes" card reveals the chosen number (binary representation). The cards can only add up to 63, so the range is 1–63, not 1–64.
 
-**Core logic — `src/lib/index.ts`:**
+**Core logic — `src/lib/` (all re-exported from `src/lib/index.ts`):**
 
 - `NUMBERS`: Six arrays, each representing numbers with a specific bit set (bit 0 through bit 5).
-- `sliceRandomElement<T>`: Picks a random element from an array and returns both the element and the remaining array. Used to randomise card presentation order.
-- `DURATION`: CSS transition duration constant (450ms), shared between `App` and `ResultGrid`.
+- `DURATION`: CSS transition duration constant (450ms), shared between `App` and `NumberCard`.
+- `game.ts`: `gameReducer` + `GameState`, a discriminated union on `phase: 'start' | 'card' | 'transitioning' | 'result'`. `current`/`remaining` exist only in the card phases, so there is no "empty card" state. The reducer is pure: actions that don't fit the current phase return the same state. `shuffle` (random sort keys) orders the deck, which is passed in with the `start` action so randomness stays out of the reducer.
+- `tsconfig.json` enables `noUncheckedIndexedAccess`; the old design relied on an unchecked `array[0]` of an empty array to end the game.
 
 **Data flow:**
 
 1. `Start` prompts the user to begin.
-2. `App` orchestrates state: `current` (card being shown), `numberArray` (remaining cards), `magic` (first element of each "yes" card).
-3. `NumberCard` displays the current card and accepts yes/no input.
+2. `App` holds the game in `useReducer(gameReducer)`. An answer moves to `transitioning`; a single effect timer (cleared on cleanup) dispatches `advance` after `DURATION` (100ms on the last card), which shows the next card or the result.
+3. `NumberCard` displays the current card; its overlay fades in while the phase is `transitioning`, and the yes/no buttons are disabled then.
 4. After all cards, `Result` sums the collected magic numbers. In magic mode it reveals the number; with Magic off it shows the "yes" cards (`ResultGrid`) for the player to add up. If every answer was "no" it shows a "wasn't on any card" message in both modes.
 5. `ResultGrid` shows only the "yes" cards, one `ResultCard` each.
 
@@ -58,7 +59,7 @@ This is a single-page React 19 + TypeScript app built with Vite 8. It implements
 
 - `Header` — nav bar with settings toggle.
 - `OffCanvas` — settings panel (Magic switch, version display). Uses `react-transition-group` for animation and `usehooks-ts` `useOnClickOutside` to dismiss.
-- `ErrorBoundary` — wraps the app; `ErrorHandler` renders the fallback UI.
+- `ErrorBoundary` — two instances only: one at the root (`index.tsx`) and one around the game area in `App`, whose `onReset` resets the game. `ErrorHandler` renders the message and a "Start over" button (`resetErrorBoundary`). No `onError`: React 19's `createRoot` already logs caught errors.
 - `Switch` — controlled toggle switch (`checked` is required). Its styled slider covers the checkbox, so e2e tests click the label.
 - `Logo` — SVG logo component.
 
