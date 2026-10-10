@@ -12,7 +12,7 @@ describe("NumberCard", () => {
     expect(
       screen.getByRole("heading", { name: "Is it any of these numbers?" }),
     ).toBeInTheDocument();
-    expect(screen.queryByText(/[/w]/)).toBeNull();
+    expect(screen.queryByText(/\d/)).toBeNull();
   });
 
   it("renders with content", () => {

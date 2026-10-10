@@ -9,7 +9,7 @@ describe("ResultCard", () => {
   it("does not render without card array", () => {
     render(<ResultCard card={[]} />);
 
-    expect(screen.queryByText(/[/w]/)).toBeNull();
+    expect(screen.queryByText(/\d/)).toBeNull();
   });
 
   it("renders with content", () => {
