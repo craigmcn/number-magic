@@ -54,3 +54,11 @@ A full-codebase review produced issues #25–#34. The first batch:
   exactly the old bug).
 - **Error boundaries (#32):** boundaries used to wrap leaves (one per result card) with none at the root
   and no way to recover. Now there's one at the root and one around the game area, with "Start over".
+
+## Menu accessibility (2026-10-08)
+
+- **#30:** the always-mounted, off-screen settings panel was keyboard-reachable while closed, had no
+  Escape handling or focus management, and the menu button exposed no state. It's now `inert` while
+  closed, a non-modal dialog labelled "Menu", focuses its close button on open, and returns focus to the
+  menu button on Escape or close. Covered by unit tests, an axe check with the menu open, and an e2e
+  keyboard walk-through (jsdom doesn't implement `inert`, so only Chromium proves the tab order).
