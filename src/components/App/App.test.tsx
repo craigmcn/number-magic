@@ -76,7 +76,7 @@ describe("App", () => {
     expect(yesButton).toBeInTheDocument();
     expect(noButton).toBeInTheDocument();
 
-    const magic = testMagic[Math.floor(Math.random() * testMagic.length)];
+    const magic = testMagic[Math.floor(Math.random() * testMagic.length)]!;
     let magicCard = screen.queryByText(magic);
 
     for (let i = 0; i < 6; i += 1) {

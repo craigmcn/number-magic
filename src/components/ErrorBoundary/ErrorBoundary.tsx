@@ -4,12 +4,14 @@ import ErrorHandler from "./ErrorHandler";
 
 interface IErrorBoundaryProps {
   children: ReactNode;
+  onReset?: () => void;
 }
 
-function ErrorBoundary(props: IErrorBoundaryProps) {
+// React 19's createRoot already reports caught errors to the console, so no onError here.
+function ErrorBoundary({ children, onReset }: IErrorBoundaryProps) {
   return (
-    <ReactErrorBoundary FallbackComponent={ErrorHandler}>
-      {props.children}
+    <ReactErrorBoundary FallbackComponent={ErrorHandler} onReset={onReset}>
+      {children}
     </ReactErrorBoundary>
   );
 }

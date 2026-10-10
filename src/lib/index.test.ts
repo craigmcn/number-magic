@@ -1,17 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { sliceRandomElement } from ".";
+import { shuffle } from ".";
 
 const testArray = [1, 2, 3, 4, 5];
 
-describe("sliceRandomElement", () => {
-  it("slices an element from the array", () => {
-    const newArray = sliceRandomElement(testArray);
+describe("shuffle", () => {
+  it("returns a new array with the same elements", () => {
+    const shuffled = shuffle(testArray);
 
-    expect(newArray.array.length).toBe(testArray.length - 1);
-    expect(testArray.includes(newArray.element)).toBe(true);
-    expect(newArray.array.includes(newArray.element)).toBe(false);
-    expect([newArray.element, ...newArray.array].sort()).toStrictEqual(
-      testArray.sort(),
-    );
+    expect(shuffled).not.toBe(testArray);
+    expect([...shuffled].sort()).toStrictEqual(testArray);
+  });
+
+  it("leaves the input untouched", () => {
+    const input = [...testArray];
+    shuffle(input);
+
+    expect(input).toStrictEqual(testArray);
   });
 });

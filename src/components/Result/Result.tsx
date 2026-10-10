@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo } from "@fortawesome/pro-light-svg-icons";
 import { useMagicMode } from "../../hooks";
-import ErrorBoundary from "../ErrorBoundary";
 import ResultGrid from "../ResultGrid";
 
 interface IResultProps {
@@ -11,7 +10,7 @@ interface IResultProps {
 
 function Result({ result, handleAgain }: IResultProps) {
   const [isMagic] = useMagicMode();
-  const magic = result.reduce((r, c) => r + c[0], 0);
+  const magic = result.reduce((sum, [first = 0]) => sum + first, 0);
 
   return (
     <>
@@ -23,11 +22,7 @@ function Result({ result, handleAgain }: IResultProps) {
         </>
       )}
 
-      {magic > 0 && !isMagic && (
-        <ErrorBoundary>
-          <ResultGrid result={result} />
-        </ErrorBoundary>
-      )}
+      {magic > 0 && !isMagic && <ResultGrid result={result} />}
 
       {magic > 0 && isMagic && (
         <>

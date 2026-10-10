@@ -43,3 +43,14 @@ A full-codebase review produced issues #25–#34. The first batch:
 - **Node 25+ `localStorage`:** Node's built-in Web Storage global shadows jsdom's and is `undefined`
   without `--localstorage-file`. Tests passed before only because `usehooks-ts` swallows storage errors.
   `vitest.config.ts` now passes `--no-experimental-webstorage` to workers.
+
+## Explicit game phase and error recovery (2026-10-08)
+
+- **Game phase (#27):** `App` used `started`, `current`, `numberArray` and `loading`, and found out the game
+  was over only because `sliceRandomElement([])` returned `undefined` typed as `number[]`. The card swap
+  and the overlay were two independent timers with the same duration, and the swap timer was never cleared.
+  Now a pure `gameReducer` with a discriminated `phase` drives everything from one cleared timer,
+  `sliceRandomElement` is replaced by a pre-shuffled deck, and `noUncheckedIndexedAccess` is on (it flagged
+  exactly the old bug).
+- **Error boundaries (#32):** boundaries used to wrap leaves (one per result card) with none at the root
+  and no way to recover. Now there's one at the root and one around the game area, with "Start over".

@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircleXmark } from "@fortawesome/pro-light-svg-icons";
-import { DURATION, NUMBERS, sliceRandomElement } from "../../lib";
+import {
+  DURATION,
+  NUMBERS,
+  gameReducer,
+  initialGameState,
+  shuffle,
+} from "../../lib";
 import Header from "../Header";
 import Start from "../Start";
 import ErrorBoundary from "../ErrorBoundary";
@@ -10,120 +16,89 @@ import Result from "../Result";
 import css from "./App.module.scss";
 
 function App() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [started, setStarted] = useState<boolean>(false);
-  const [magic, setMagic] = useState<number[][]>([]);
-  const [current, setCurrent] = useState<number[]>([]);
-  const [numberArray, setNumberArray] = useState<number[][]>(NUMBERS);
-
-  const initNumbers = useCallback(() => {
-    const { element, array } = sliceRandomElement<number[]>(NUMBERS);
-    setCurrent(element);
-    setNumberArray(array);
-  }, []);
-
-  const getNextCard = useCallback(() => {
-    const { element, array } = sliceRandomElement<number[]>(numberArray);
-    setCurrent(element);
-    setNumberArray(array);
-  }, [numberArray]);
-
-  const slowNextCard = useCallback(
-    (slow = true) => {
-      setTimeout(
-        () => {
-          // match with transition duration
-          getNextCard();
-        },
-        slow ? DURATION : 100,
-      );
-    },
-    [getNextCard],
-  );
+  const [game, dispatch] = useReducer(gameReducer, initialGameState);
 
   const handleStart = useCallback(() => {
-    setStarted(true);
+    dispatch({ type: "start", deck: shuffle(NUMBERS) });
   }, []);
 
   const handleYes = useCallback(() => {
-    setLoading(true);
-    setMagic((magic) => [...magic, current]);
-    slowNextCard(numberArray.length > 0);
-  }, [numberArray.length, current, setLoading, setMagic, slowNextCard]);
+    dispatch({ type: "answer", isYes: true });
+  }, []);
 
   const handleNo = useCallback(() => {
-    setLoading(true);
-    slowNextCard(numberArray.length > 0);
-  }, [numberArray.length, setLoading, slowNextCard]);
+    dispatch({ type: "answer", isYes: false });
+  }, []);
 
   const handleAgain = useCallback(() => {
-    setStarted(false);
-    setMagic([]);
-    initNumbers();
-  }, [initNumbers]);
+    dispatch({ type: "reset" });
+  }, []);
 
+  const isLastCard =
+    game.phase === "transitioning" && game.remaining.length === 0;
+
+  // One timer per transition: the overlay fades in over DURATION, then the next card swaps in
+  // underneath it. The last card skips the fade since the result screen replaces it anyway.
   useEffect(() => {
-    if (!loading) return;
+    if (game.phase !== "transitioning") return;
 
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, DURATION);
+    const timer = setTimeout(
+      () => dispatch({ type: "advance" }),
+      isLastCard ? 100 : DURATION,
+    );
 
     return () => clearTimeout(timer);
-  }, [loading]);
-
-  useEffect(() => {
-    initNumbers();
-  }, [initNumbers]);
+  }, [game.phase, isLastCard]);
 
   return (
     <>
       <Header />
 
       <main className={css.container}>
-        {!started && <Start handleStart={handleStart} />}
+        <ErrorBoundary onReset={handleAgain}>
+          {game.phase === "start" && <Start handleStart={handleStart} />}
 
-        {started && current && (
-          <>
-            <ErrorBoundary>
-              <NumberCard loading={loading} numbers={current} />
-            </ErrorBoundary>
+          {(game.phase === "card" || game.phase === "transitioning") && (
+            <>
+              <NumberCard
+                loading={game.phase === "transitioning"}
+                numbers={game.current}
+              />
 
-            <p className="mt-6">
-              <button
-                className="large success mr-4"
-                onClick={handleYes}
-                disabled={loading}
-              >
-                <FontAwesomeIcon
-                  icon={faCircleCheck}
-                  fixedWidth
-                  className="text-success mr-2"
-                />
-                Yes!
-              </button>
+              <p className="mt-6">
+                <button
+                  className="large success mr-4"
+                  onClick={handleYes}
+                  disabled={game.phase === "transitioning"}
+                >
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    fixedWidth
+                    className="text-success mr-2"
+                  />
+                  Yes!
+                </button>
 
-              <button
-                className="large danger"
-                onClick={handleNo}
-                disabled={loading}
-              >
-                <FontAwesomeIcon
-                  icon={faCircleXmark}
-                  fixedWidth
-                  className="text-danger mr-2"
-                />
-                No
-              </button>
-            </p>
-          </>
-        )}
+                <button
+                  className="large danger"
+                  onClick={handleNo}
+                  disabled={game.phase === "transitioning"}
+                >
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    fixedWidth
+                    className="text-danger mr-2"
+                  />
+                  No
+                </button>
+              </p>
+            </>
+          )}
 
-        {started && !current && (
-          <ErrorBoundary>
-            <Result result={magic} handleAgain={handleAgain} />
-          </ErrorBoundary>
-        )}
+          {game.phase === "result" && (
+            <Result result={game.yesCards} handleAgain={handleAgain} />
+          )}
+        </ErrorBoundary>
       </main>
     </>
   );
